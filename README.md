@@ -1,2 +1,31 @@
-# CryptoGaurdAI
+# CryptoGuardAI
+
 CryptoGuardAI is aimed at detecting phishing emails and securing email communications using AI, cryptography, and cybersecurity.
+
+## Features
+
+- **Phishing Email Detection**: Classify emails as phishing or not phishing using machine learning models.
+- **Email Filtering**: Automatically separating phishing emails from legitimate emails.
+- **Web Interface**: Upload and process emails through a Flask-based web application.
+- **User Privacy**: Use end to end encryption methods to safely send and receive emails and protect confidentiallity.
+
+### Prerequisites
+
+- Python 3.10.9
+- Required Python libraries: `flask`, `werkzeug`, `pandas`, `scikit-learn`
+
+### References
+### Code
+[1] Flask: Pallets Projects. (2023). Flask (version 3.0.3). https://flask.palletsprojects.com/
+
+[2] ChatGPT: OpenAI. (2024, August 29). ChatGPT. https://chatgpt.com/
+
+[3] Pandas: Pandas Development Team. (2024). Pandas (version 2.2.2). https://pandas.pydata.org/
+
+[4] Scikit-learn: Scikit-learn developers. (2024, August 29). Scikit-learn: Machine learning in Python (version 1.5.1). https://scikit-learn.org/
+
+[5] Werkzeug: Pallets Projects. (2023). Werkzeug (version 3.0.3). https://werkzeug.palletsprojects.com/
+
+### Datasets
+ChatGPT: OpenAI. (2024, August 29). ChatGPT. https://chatgpt.com/
+
