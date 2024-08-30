@@ -1,0 +1,420 @@
+# Dataset Reference: ChatGPT: OpenAI. (2024, August 29). ChatGPT. Retrieved from https://chatgpt.com/
+
+email_text,label
+"Congratulations! You've won a $1,000 gift card. Click here to claim your prize.",1
+"Hi John, just checking in on our meeting tomorrow. Let me know if anything changes.",0
+"Urgent: Your account has been compromised. Please reset your password immediately.",1
+"Dear Customer, verify your account immediately using this link.",1
+"Congratulations! You've been selected for a $1,000 prize. Claim it here.",1
+"Immediate action required to update your security settings. Click this link.",1
+"Reminder: Your subscription will renew automatically next month. No action needed.",0
+"Hello team, please find the agenda for next week's meeting attached.",0
+"Your account has been locked due to suspicious activity. Click here to unlock it.",1
+"Monthly newsletter: Updates and upcoming events in our company.",0
+"Alert: Unusual login attempt detected. Please secure your account by following this link.",1
+"Dear User, please review your recent transactions and update your payment information.",1
+"Hello, your order has been shipped. Track your package here.",0
+"Urgent: Action required! Your account will be suspended unless you update your details.",1
+"Upcoming webinar: Learn about the latest trends in technology. Register now!",0
+"Security Notice: Your account password has been changed. If you did not request this, click here.",1
+"Weekly update: Our new features and improvements for you to explore.",0
+"Win a free iPhone! Click here to enter our giveaway.",1
+"Confirmation: Your purchase has been completed successfully.",0
+"Final Notice: Your bank account will be closed unless you verify your identity today.",1
+"Exclusive offer: 50% discount on your favorite products. Click here to shop now!",1
+"Important: Immediate action required to update your billing information.",1
+"Claim your free vacation package now! Limited time offer, act fast!",1
+"Your recent application has been approved. Verify your details to complete the process.",1
+"Dear User, your account needs verification. Please confirm your details now.",1
+"Get a free trial of our premium service. Sign up today!",1
+"Thank you for your order. Here is your invoice for the recent purchase.",0
+"Suspicious activity detected. Click here to secure your account.",1
+"Reminder: Your appointment is scheduled for tomorrow. Looking forward to seeing you!",0
+"Congratulations! You've been selected for a special offer. Click here to claim.",1
+"Your account has been upgraded. Enjoy the new features!",0
+"Urgent: Action needed to prevent your account from being suspended.",1
+"Monthly update from our team. Check out the latest news and updates.",0
+"Dear Customer, your payment has failed. Update your payment details here.",1
+"Limited time offer: Get 75% off on all products. Shop now!",1
+"Account Security Alert: Please verify your login attempt.",1
+"Here's your password reset link. Please change your password immediately.",1
+"Upcoming event: Join us for a live Q&A session. Register now!",0
+"Your subscription has been successfully renewed. No action needed.",0
+"Exclusive deal just for you! Save big on your next purchase.",1
+"Important notice: Your account settings have been changed. If this wasn’t you, click here.",1
+"Win a free tablet! Enter our contest by clicking this link.",1
+"Reminder: Your account balance is low. Please deposit funds to avoid service interruption.",0
+"Special offer: Get a free gift card with every purchase. Click to claim yours.",1
+"Your order is on the way! Track it using the link below.",0
+"Security update required. Click here to update your security settings.",1
+"Invitation: Join our exclusive webinar on industry trends.",0
+"Dear User, verify your account to continue using our services.",1
+"Congratulations! You've been selected for a bonus. Click here to claim.",1
+"Notice: Your account has been temporarily suspended. Reactivate now.",1
+"Special announcement: New features available for you. Check them out!",0
+"Important: Your account details need to be updated. Please follow this link.",1
+"Congratulations! You've won a prize. Claim it by clicking here.",1
+"Reminder: Your payment for the subscription is overdue. Please pay now.",1
+"Security alert: Unusual activity detected. Verify your account to secure it.",1
+"New product launch: Check out our latest offerings.",0
+"Dear Customer, update your contact information to continue receiving our emails.",1
+"Exclusive offer: Buy one, get one free. Limited time only!",1
+"Your recent transaction has been completed. View details here.",0
+"Account update required. Click here to review and update your information.",1
+"Free trial offer: Get started today and enjoy our premium features.",1
+"Your application has been approved. Confirm your details to proceed.",1
+"Reminder: Your subscription will renew soon. Review your plan here.",0
+"Congratulations! You've been selected for a special promotion. Click to learn more.",1
+"Security update: Your account has been flagged for unusual activity. Verify now.",1
+"Special offer just for you: 50% off all products this weekend!",1
+"Important: Your account will be deactivated unless you update your information.",1
+"Reminder: Your appointment is confirmed. See you soon!",0
+"Claim your free gift card now! Limited time offer.",1
+"Your order has been successfully placed. Track your shipment here.",0
+"Urgent: Update your billing information to avoid service interruption.",1
+"Dear User, your account needs immediate attention. Click here to secure it.",1
+"Exclusive discount: Get 30% off your next purchase. Shop now!",1
+"Notice: Your account will be suspended if you do not verify your details.",1
+"Important: Update your payment method to continue using our services.",1
+"Congratulations! You've won a free vacation. Click to claim your prize.",1
+"Reminder: Your subscription payment is overdue. Please make a payment to avoid interruption.",1
+"Dear Customer, verify your email address to continue receiving updates.",1
+"Special promotion: Get a free gift with every order. Limited time only!",1
+"Your recent payment has been processed. View the receipt here.",0
+"Urgent: Your account has been compromised. Click here to secure it now.",1
+"Congratulations! You've been selected for a special offer. Claim it here.",1
+"Reminder: Your subscription will renew soon. Update your payment information.",0
+"Important notice: Your account will be locked unless you verify your details.",1
+"Free trial offer: Enjoy our premium features for 30 days.",1
+"Your application has been processed. Confirm your details to complete.",1
+"New update: Check out our latest features and improvements.",0
+"Exclusive offer: Get 40% off your next purchase. Click here to shop.",1
+"Security alert: Your account needs verification. Follow this link to update.",1
+"Congratulations! You've won a special prize. Claim it now.",1
+"Reminder: Your account is about to expire. Renew now to continue using our services.",1
+"Important: Update your account settings to avoid service disruption.",1
+"Special offer: Buy one, get one free on all items. Limited time only!",1
+"Your order is on its way. Track it here.",0
+"Urgent: Security breach detected. Click here to secure your account.",1
+"Exclusive discount: 20% off your next purchase. Shop now!",1
+"Important: Verify your account to continue using our services.",1
+"Congratulations! You've been selected for a special promotion. Claim your reward.",1
+"Reminder: Your payment is overdue. Please pay to avoid service interruption.",1
+"Dear User, please update your details to continue receiving notifications.",1
+"Special offer: Get a free gift card with every order. Limited time only!",1
+"Security alert: Your account has been flagged. Click here to review.",1
+"Your subscription has been successfully renewed. No action needed.",0
+"Urgent: Update your security settings to protect your account.",1
+"Congratulations! You've won a $500 gift card. Click here to claim it.",1
+"Important: Your account is at risk. Click here to secure it.",1
+"Reminder: Your appointment is confirmed for tomorrow. See you soon!",0
+"Special offer: 60% off on all products. Shop now!",1
+"Security update required. Click here to update your settings.",1
+"Dear Customer, your payment has been processed. View details here.",0
+"Important notice: Verify your account to continue using our services.",1
+"Exclusive offer: Get a free trial of our premium service. Sign up now!",1
+"Your recent application has been approved. Confirm details to proceed.",1
+"Reminder: Your subscription will renew automatically. No action needed.",0
+"Congratulations! You've been selected for a special deal. Click here to claim.",1
+"Security alert: Unusual activity detected. Verify your account now.",1
+"Important: Update your payment information to avoid service disruption.",1
+"Exclusive deal: Get 70% off your next order. Shop now
+
+!",1
+"Your order has been shipped. Track it here.",0
+"Urgent: Your account will be suspended unless you verify your details.",1
+"Special promotion: Free gift with every purchase. Limited time only!",1
+"Dear User, please confirm your details to continue using our services.",1
+"Congratulations! You've won a prize. Click here to claim it.",1
+"Reminder: Your subscription payment is overdue. Please pay now.",1
+"Important: Your account details need to be updated. Click here to review.",1
+"Exclusive offer: 30% off your next purchase. Shop now!",1
+"Security alert: Your account has been flagged for suspicious activity. Verify now.",1
+"Congratulations! You've been selected for a special offer. Claim it here.",1
+"Reminder: Your account balance is low. Please deposit funds.",0
+"Urgent: Your account will be deactivated unless you update your information.",1
+"Special offer: Get a free gift card with every purchase. Click here to claim yours.",1
+"Your recent order has been completed. View the details here.",0
+"Important: Immediate action required to secure your account.",1
+"Congratulations! You've won a free vacation. Click here to claim your prize.",1
+"Reminder: Your subscription will renew automatically next month.",0
+"Security update: Your account needs verification. Click here to update.",1
+"Exclusive discount: Save 50% on your next purchase. Shop now!",1
+"Dear Customer, verify your account to continue using our services.",1
+"Special promotion: Get a free gift with every purchase. Limited time offer!",1
+"Your order is on its way. Track your shipment here.",0
+"Urgent: Update your billing information to avoid service interruption.",1
+"Important: Your account will be suspended unless you verify your details.",1
+"Congratulations! You've been selected for a special reward. Click here to claim.",1
+"Reminder: Your payment for the subscription is overdue. Please pay now.",1
+"Exclusive offer: Get 40% off on your next purchase. Shop now!",1
+"Security alert: Unusual activity detected on your account. Verify now.",1
+"Dear User, update your details to continue receiving notifications.",1
+"Special offer: Buy one, get one free on all items. Limited time only!",1
+"Your recent payment has been processed. View receipt here.",0
+"Urgent: Your account has been compromised. Click here to secure it now.",1
+"Congratulations! You've won a free prize. Claim it here.",1
+"Reminder: Your subscription will renew soon. Review your plan here.",0
+"Important notice: Update your account settings to avoid service disruption.",1
+"Exclusive offer: Get a free gift card with every purchase. Click here to claim.",1
+"Your order has been successfully placed. Track it here.",0
+"Urgent: Security breach detected. Click here to secure your account.",1
+"Special discount: Get 50% off your next order. Shop now!",1
+"Important: Verify your account details to continue using our services.",1
+"Congratulations! You've been selected for a special promotion. Claim your reward here.",1
+"Reminder: Your payment is overdue. Please make a payment to avoid service interruption.",1
+"Dear User, please update your details to continue receiving notifications.",1
+"Special promotion: Get a free gift with every order. Limited time only!",1
+"Security alert: Your account has been flagged for suspicious activity. Click here to review.",1
+"Your subscription has been renewed successfully. No action needed.",0
+"Urgent: Update your security settings to protect your account.",1
+"Congratulations! You've won a $500 gift card. Click here to claim it.",1
+"Important: Your account is at risk. Click here to secure it now.",1
+"Reminder: Your appointment is confirmed for tomorrow. See you soon!",0
+"Special offer: 60% off on all products. Shop now!",1
+"Security update required. Click here to update your settings.",1
+"Dear Customer, your payment has been processed. View details here.",0
+"Important notice: Verify your account to continue using our services.",1
+"Exclusive offer: Get a free trial of our premium service. Sign up now!",1
+"Your recent application has been approved. Confirm details to proceed.",1
+"Reminder: Your subscription will renew automatically. No action needed.",0
+"Congratulations! You've been selected for a special deal. Click here to claim.",1
+"Security alert: Unusual activity detected. Verify your account now.",1
+"Important: Update your payment information to avoid service disruption.",1
+"Exclusive deal: Get 70% off your next order. Shop now!",1
+"Your order has been shipped. Track it here.",0
+"Urgent: Your account will be suspended unless you verify your details.",1
+"Special promotion: Free gift with every purchase. Limited time only!",1
+"Dear User, please confirm your details to continue using our services.",1
+"Congratulations! You've won a prize. Click here to claim it.",1
+"Reminder: Your subscription payment is overdue. Please pay now.",1
+"Important: Your account details need to be updated. Click here to review.",1
+"Exclusive offer: 30% off your next purchase. Shop now!",1
+"Security alert: Your account has been flagged for suspicious activity. Verify now.",1
+"Congratulations! You've been selected for a special offer. Claim it here.",1
+"Reminder: Your account balance is low. Please deposit funds.",0
+"Urgent: Your account will be deactivated unless you update your information.",1
+"Special offer: Get a free gift card with every purchase. Click here to claim yours.",1
+"Your recent order has been completed. View the details here.",0
+"Important: Immediate action required to secure your account.",1
+"Congratulations! You've won a free vacation. Click here to claim your prize.",1
+"Reminder: Your subscription will renew automatically next month.",0
+"Security update: Your account needs verification. Click here to update.",1
+"Exclusive discount: Save 50% on your next purchase. Shop now!",1
+"Dear Customer, verify your account to continue using our services.",1
+"Special promotion: Get a free gift with every purchase. Limited time offer!",1
+"Your order is on its way. Track your shipment here.",0
+"Urgent: Update your billing information to avoid service interruption.",1
+"Important: Your account will be suspended unless you verify your details.",1
+"Congratulations! You've been selected for a special reward. Click here to claim.",1
+"Reminder: Your payment for the subscription is overdue. Please pay now.",1
+"Exclusive offer: Get 40% off on your next purchase. Shop now!",1
+"Security alert: Unusual activity detected on your account. Verify now.",1
+"Dear User, update your details to continue receiving notifications.",1
+"Special promotion: Buy one, get one free on all items. Limited time only!",1
+"Your recent payment has been processed. View receipt here.",0
+"Urgent: Your account has been compromised. Click here to secure it now.",1
+"Congratulations! You've won a free prize. Claim it here.",1
+"Reminder: Your subscription will renew soon. Review your plan here.",0
+"Important notice: Update your account settings to avoid service disruption.",1
+"Exclusive offer: Get a free gift card with every purchase. Click here to claim.",1
+"Your order has been successfully placed. Track it here.",0
+"Urgent: Security breach detected. Click here to secure your account.",1
+"Special discount: Get 50% off your next order. Shop now!",1
+"Important: Verify your account details to continue using our services.",1
+"Congratulations! You've been selected for a special promotion. Claim your reward here.",1
+"Reminder: Your payment is overdue. Please make a payment to avoid service interruption.",1
+"Dear User, please update your details to continue receiving notifications.",1
+"Special promotion: Get a free gift with every order. Limited time only!",1
+"Security alert: Your account has been flagged for suspicious activity. Click here to review.",1
+"Your subscription has been renewed successfully. No action needed.",0
+"Urgent: Update your security settings to protect your account.",1
+"Congratulations! You've won a $500 gift card. Click here to claim it.",1
+"Important: Your account is at risk. Click here to secure it now.",1
+"Reminder: Your appointment is confirmed for tomorrow. See you soon!",0
+"Special offer: 60% off on all products. Shop now!",1
+"Security update required. Click here to update your settings.",1
+"Dear Customer, your payment has been processed. View details here.",0
+"Important notice: Verify your account to continue using our services.",1
+"Exclusive offer: Get a free trial of our premium service. Sign up now!",1
+"Your recent application has been approved. Confirm details to proceed.",1
+"Reminder: Your subscription will renew automatically. No action needed.",0
+"Congratulations! You've been selected for a special deal. Click here to claim.",1
+"Security alert: Unusual activity detected. Verify your account now.",1
+"Important: Update your payment information to avoid service disruption.",1
+"Exclusive deal: Get 70% off your next order. Shop now!",1
+"Your order has been shipped. Track it here.",0
+"Urgent: Your account will be suspended unless you verify your details.",1
+"Special promotion
+
+: Free gift with every purchase. Limited time only!",1
+"Dear User, please confirm your details to continue using our services.",1
+"Congratulations! You've won a prize. Click here to claim it.",1
+"Reminder: Your subscription payment is overdue. Please pay now.",1
+"Important: Your account details need to be updated. Click here to review.",1
+"Exclusive offer: 30% off your next purchase. Shop now!",1
+"Security alert: Your account has been flagged for suspicious activity. Verify now.",1
+"Congratulations! You've been selected for a special offer. Claim it here.",1
+"Reminder: Your account balance is low. Please deposit funds.",0
+"Urgent: Your account will be deactivated unless you update your information.",1
+"Special offer: Get a free gift card with every purchase. Click here to claim yours.",1
+"Your recent order has been completed. View the details here.",0
+"Important: Immediate action required to secure your account.",1
+"Congratulations! You've won a free vacation. Click here to claim your prize.",1
+"Reminder: Your subscription will renew automatically next month.",0
+"Security update: Your account needs verification. Click here to update.",1
+"Exclusive discount: Save 50% on your next purchase. Shop now!",1
+"Dear Customer, verify your account to continue using our services.",1
+"Special promotion: Get a free gift with every purchase. Limited time offer!",1
+"Your order is on its way. Track your shipment here.",0
+"Urgent: Update your billing information to avoid service interruption.",1
+"Important: Your account will be suspended unless you verify your details.",1
+"Congratulations! You've been selected for a special reward. Click here to claim.",1
+"Reminder: Your payment for the subscription is overdue. Please pay now.",1
+"Exclusive offer: Get 40% off on your next purchase. Shop now!",1
+"Security alert: Unusual activity detected on your account. Verify now.",1
+"Dear User, update your details to continue receiving notifications.",1
+"Special promotion: Buy one, get one free on all items. Limited time only!",1
+"Your recent payment has been processed. View receipt here.",0
+"Urgent: Your account has been compromised. Click here to secure it now.",1
+"Congratulations! You've won a free prize. Claim it here.",1
+"Reminder: Your subscription will renew soon. Review your plan here.",0
+"Important notice: Update your account settings to avoid service disruption.",1
+"Exclusive offer: Get a free gift card with every purchase. Click here to claim.",1
+"Your order has been successfully placed. Track it here.",0
+"Urgent: Security breach detected. Click here to secure your account.",1
+"Special discount: Get 50% off your next order. Shop now!",1
+"Important: Verify your account details to continue using our services.",1
+"Congratulations! You've been selected for a special promotion. Claim your reward here.",1
+"Reminder: Your payment is overdue. Please make a payment to avoid service interruption.",1
+"Dear User, please update your details to continue receiving notifications.",1
+"Special promotion: Get a free gift with every order. Limited time only!",1
+"Security alert: Your account has been flagged for suspicious activity. Click here to review.",1
+"Your subscription has been renewed successfully. No action needed.",0
+"Urgent: Update your security settings to protect your account.",1
+"Congratulations! You've won a $500 gift card. Click here to claim it.",1
+"Important: Your account is at risk. Click here to secure it now.",1
+"Reminder: Your appointment is confirmed for tomorrow. See you soon!",0
+"Special offer: 60% off on all products. Shop now!",1
+"Security update required. Click here to update your settings.",1
+"Dear Customer, your payment has been processed. View details here.",0
+"Important notice: Verify your account to continue using our services.",1
+"Exclusive offer: Get a free trial of our premium service. Sign up now!",1
+"Your recent application has been approved. Confirm details to proceed.",1
+"Reminder: Your subscription will renew automatically. No action needed.",0
+"Congratulations! You've been selected for a special deal. Click here to claim.",1
+"Security alert: Unusual activity detected. Verify your account now.",1
+"Important: Update your payment information to avoid service disruption.",1
+"Exclusive deal: Get 70% off your next order. Shop now!",1
+"Your order has been shipped. Track it here.",0
+"Urgent: Your account will be suspended unless you verify your details.",1
+"Special promotion: Free gift with every purchase. Limited time only!",1
+"Dear User, please confirm your details to continue using our services.",1
+"Congratulations! You've won a prize. Click here to claim it.",1
+"Reminder: Your subscription payment is overdue. Please pay now.",1
+"Important: Your account details need to be updated. Click here to review.",1
+"Exclusive offer: 30% off your next purchase. Shop now!",1
+"Security alert: Your account has been flagged for suspicious activity. Verify now.",1
+"Congratulations! You've been selected for a special offer. Claim it here.",1
+"Reminder: Your account balance is low. Please deposit funds.",0
+"Urgent: Your account will be deactivated unless you update your information.",1
+"Special offer: Get a free gift card with every purchase. Click here to claim yours.",1
+"Your recent order has been completed. View the details here.",0
+"Important: Immediate action required to secure your account.",1
+"Congratulations! You've won a free vacation. Click here to claim your prize.",1
+"Reminder: Your subscription will renew automatically next month.",0
+"Security update: Your account needs verification. Click here to update.",1
+"Exclusive discount: Save 50% on your next purchase. Shop now!",1
+"Dear Customer, verify your account to continue using our services.",1
+"Special promotion: Get a free gift with every purchase. Limited time offer!",1
+"Your order is on its way. Track your shipment here.",0
+"Urgent: Update your billing information to avoid service interruption.",1
+"Important: Your account will be suspended unless you verify your details.",1
+"Congratulations! You've been selected for a special reward. Click here to claim.",1
+"Reminder: Your payment for the subscription is overdue. Please pay now.",1
+"Exclusive offer: Get 40% off on your next purchase. Shop now!",1
+"Security alert: Unusual activity detected on your account. Verify now.",1
+"Dear User, update your details to continue receiving notifications.",1
+"Special promotion: Buy one, get one free on all items. Limited time only!",1
+"Your recent payment has been processed. View receipt here.",0
+"Urgent: Your account has been compromised. Click here to secure it now.",1
+"Congratulations! You've won a free prize. Claim it here.",1
+"Reminder: Your subscription will renew soon. Review your plan here.",0
+"Important notice: Update your account settings to avoid service disruption.",1
+"Exclusive offer: Get a free gift card with every purchase. Click here to claim.",1
+"Your order has been successfully placed. Track it here.",0
+"Urgent: Security breach detected. Click here to secure your account.",1
+"Special discount: Get 50% off your next order. Shop now!",1
+"Important: Verify your account details to continue using our services.",1
+"Congratulations! You've been selected for a special promotion. Claim your reward here.",1
+"Reminder: Your payment is overdue. Please make a payment to avoid service interruption.",1
+"Dear User, please update your details to continue receiving notifications.",1
+"Special promotion: Get a free gift with every order. Limited time only!",1
+"Security alert: Your account has been flagged for suspicious activity. Click here to review.",1
+"Your subscription has been renewed successfully. No action needed.",0
+"Urgent: Update your security settings to protect your account.",1
+"Congratulations! You've won a $500 gift card. Click here to claim it.",1
+"Important: Your account is at risk. Click here to secure it now.",1
+"Reminder: Your appointment is confirmed for tomorrow. See you soon!",0
+"Special offer: 60% off on all products. Shop now!",1
+"Security update required. Click here to update your settings.",1
+"Dear Customer, your payment has been processed. View details here.",0
+"Important notice: Verify your account to continue using our services.",1
+"Exclusive offer: Get a free trial of our premium service. Sign up now!",1
+"Your recent application has been approved. Confirm details to proceed.",1
+"Reminder: Your subscription will renew automatically. No action needed.",0
+"Congratulations! You've been selected for a special deal. Click here to claim.",1
+"Security alert: Unusual activity detected. Verify your account now.",1
+"Important: Update your payment information to avoid service disruption.",1
+"Exclusive deal: Get 70% off your next order. Shop now!",1
+"Your order has been shipped. Track it here.",0
+"Urgent: Your account will be suspended unless you verify your details.",1
+"Special promotion: Free gift with every purchase. Limited time only!",1
+"Dear User, please confirm your details to continue using our services.",1
+"Congratulations! You've won a prize
+
+. Click here to claim it.",1
+"Reminder: Your subscription payment is overdue. Please pay now.",1
+"Important: Your account details need to be updated. Click here to review.",1
+"Exclusive offer: 30% off your next purchase. Shop now!",1
+"Security alert: Your account has been flagged for suspicious activity. Verify now.",1
+"Congratulations! You've been selected for a special offer. Claim it here.",1
+"Reminder: Your account balance is low. Please deposit funds.",0
+"Urgent: Your account will be deactivated unless you update your information.",1
+"Special offer: Get a free gift card with every purchase. Click here to claim yours.",1
+"Your recent order has been completed. View the details here.",0
+"Important: Immediate action required to secure your account.",1
+"Congratulations! You've won a free vacation. Click here to claim your prize.",1
+"Reminder: Your subscription will renew automatically next month.",0
+"Security update: Your account needs verification. Click here to update.",1
+"Exclusive discount: Save 50% on your next purchase. Shop now!",1
+"Dear Customer, verify your account to continue using our services.",1
+"Special promotion: Get a free gift with every purchase. Limited time offer!",1
+"Your order is on its way. Track your shipment here.",0
+"Urgent: Update your billing information to avoid service interruption.",1
+"Important: Your account will be suspended unless you verify your details.",1
+"Congratulations! You've been selected for a special reward. Click here to claim.",1
+"Reminder: Your payment for the subscription is overdue. Please pay now.",1
+"Exclusive offer: Get 40% off on your next purchase. Shop now!",1
+"Security alert: Unusual activity detected on your account. Verify now.",1
+"Dear User, update your details to continue receiving notifications.",1
+"Special promotion: Buy one, get one free on all items. Limited time only!",1
+"Your recent payment has been processed. View receipt here.",0
+"Urgent: Your account has been compromised. Click here to secure it now.",1
+"Congratulations! You've won a free prize. Claim it here.",1
+"Reminder: Your subscription will renew soon. Review your plan here.",0
+"Important notice: Update your account settings to avoid service disruption.",1
+"Exclusive offer: Get a free gift card with every purchase. Click here to claim.",1
+"Your order has been successfully placed. Track it here.",0
+"Urgent: Security breach detected. Click here to secure your account.",1
+"Special discount: Get 50% off your next order. Shop now!",1
+"Important: Verify your account details to continue using our services.",1
+"Congratulations! You've been selected for a special promotion. Claim your reward here.",1
+"Reminder: Your payment is overdue. Please make a payment to avoid service interruption.",1
+"Dear User, please update your details to continue receiving notifications.",1
+"Special promotion: Get a free gift with every order. Limited time only!",1
+"Security alert: Your account has been flagged for suspicious activity. Click here to review.",1
+"Your subscription has been renewed successfully. No action needed.",0
+"Urgent: Update your security settings to protect your account.",1
+"Congratulations! You've won a $500 gift card. Click here to claim it.",1
+"Important: Your account is at risk. Click here to secure it now.",1
