@@ -10,12 +10,11 @@ References:
 import socket
 import ssl
 
-
 def receive_messages(recipient_email, port):
     try:
         context = ssl.create_default_context()
         context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
-
+    
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
@@ -26,11 +25,11 @@ def receive_messages(recipient_email, port):
 
         response = client_socket.recv(1024).decode("utf-8")
         print(response)
-        client_socket.send("password123".encode("utf-8")) 
+        client_socket.send("password123".encode("utf-8"))  
 
         response = client_socket.recv(1024).decode("utf-8")
         print(response)
-    
+
         if "+OK" in response:
             client_socket.send(recipient_email.encode("utf-8"))
             response = client_socket.recv(1024).decode("utf-8")
