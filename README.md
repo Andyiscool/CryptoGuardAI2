@@ -20,6 +20,7 @@ CryptoGuardAI is aimed at detecting phishing emails and securing email communica
 
 [2] ChatGPT: OpenAI. (2024, August 29). ChatGPT. https://chatgpt.com/
 
+<<<<<<< HEAD
 [3] ChatGPT: OpenAI. (2024, September). ChatGPT. https://chatgpt.com/
 
 [4] Pandas: Pandas Development Team. (2024). Pandas (version 2.2.2). https://pandas.pydata.org/
@@ -27,6 +28,13 @@ CryptoGuardAI is aimed at detecting phishing emails and securing email communica
 [5] Scikit-learn: Scikit-learn developers. (2024, August 29). Scikit-learn: Machine learning in Python (version 1.5.1). https://scikit-learn.org/
 
 [6] Werkzeug: Pallets Projects. (2023). Werkzeug (version 3.0.3). https://werkzeug.palletsprojects.com/
+=======
+[3] Pandas: Pandas Development Team. (2024). Pandas (version 2.2.2). https://pandas.pydata.org/
+
+[4] Scikit-learn: Scikit-learn developers. (2024, August 29). Scikit-learn: Machine learning in Python (version 1.5.1). https://scikit-learn.org/
+
+[5] Werkzeug: Pallets Projects. (2023). Werkzeug (version 3.0.3). https://werkzeug.palletsprojects.com/
+>>>>>>> d37e6ea (Initial commit)
 
 ### Datasets
 ChatGPT: OpenAI. (2024, August 29). ChatGPT. https://chatgpt.com/
