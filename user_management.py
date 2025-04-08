@@ -6,13 +6,22 @@ References:
 - ChatGPT: OpenAI. (2024, September). ChatGPT. Retrieved from https://chatgpt.com/
 - GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
 """
+import sqlite3
 from argon2 import PasswordHasher
 import re
 ph = PasswordHasher()
-users = {
-    "alice@example.com": ph.hash("securepass"),
-    "bob@example.com": ph.hash("password123")
-}
+def init_db():
+    conn = sqlite3.connect('users.db')
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            email TEXT PRIMARY KEY,
+            password TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
 def validate_password(password):
     if len(password) < 8:
         return "Password must be at least 8 characters long."
@@ -26,23 +35,39 @@ def validate_password(password):
         return "Password must contain at least one special character."
     return None
 def register_user(email, password):
-    if email in users:
+    conn = sqlite3.connect('users.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM users WHERE email = ?', (email,))
+    if c.fetchone():
+        conn.close()
         return "User already exists."
+    
     password_error = validate_password(password)
     if password_error:
+        conn.close()
         return password_error
-    users[email] = ph.hash(password)
+    
+    password_hash = ph.hash(password)
+    c.execute('INSERT INTO users (email, password) VALUES (?, ?)', (email, password_hash))
+    conn.commit()
+    conn.close()
     return "User registered successfully."
 def authenticate_user(email, password):
-    if email in users:
+    conn = sqlite3.connect('users.db')
+    c = conn.cursor()
+    c.execute('SELECT password FROM users WHERE email = ?', (email,))
+    result = c.fetchone()
+    conn.close()
+    if result:
+        password_hash = result[0]
         try:
-            print(f"Authenticating user: {email}")
-            print(f"Stored hash: {users[email]}")
-            ph.verify(users[email], password)
-            print("Password verified successfully.")
+            ph.verify(password_hash, password)
             return True
         except Exception as e:
             print(f"Password verification failed: {e}")
             return False
-    print("User not found.")
-    return False
+    else:
+        print("User not found.")
+        return False
+if __name__ == "__main__":
+    init_db()

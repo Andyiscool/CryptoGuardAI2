@@ -11,7 +11,7 @@ import socket
 import ssl
 import threading
 from collections import defaultdict
-from user_management import users, register_user, authenticate_user
+from user_management import register_user, authenticate_user
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC

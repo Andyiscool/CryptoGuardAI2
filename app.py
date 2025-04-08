@@ -5,20 +5,28 @@ Author: Andy Xiao
 References:
 - Flask: Pallets Projects. (2023). Flask (version 2.2.3). Retrieved from https://flask.palletsprojects.com/
 - ChatGPT: OpenAI. (2024, August 29). ChatGPT. Retrieved from https://chatgpt.com/
+- GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
 - Werkzeug: Pallets Projects. (2023). Werkzeug (version 2.2.3). Retrieved from https://werkzeug.palletsprojects.com/
 """
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import os
 from Filter import filter_emails
 from Phish_detection import load_data, preprocess_and_vectorize, train_model, classify_email
 from werkzeug.utils import secure_filename
+from user_management import register_user, authenticate_user
+import secrets
+secret_key = secrets.token_hex(32)
 
 app = Flask(__name__)
+app.secret_key = secret_key
 
 UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = {'csv'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
@@ -27,9 +35,11 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
-            return 'No file part'
+            flash('No file part')
+            return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
+            flash('No selected file')
             return 'No selected file'
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -37,15 +47,36 @@ def upload_file():
             file.save(filepath)
             filter_emails(filepath)
             return redirect(url_for('results', filename=filename))
-    return render_template('item.html')
+    return render_template('upload.html')
 
 @app.route('/results/<filename>')
 def results(filename):
     return f"Results for file: {filename}"
-
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+        if password != confirm_password:
+            flash('Passwords do not match.')
+            return redirect(request.url)
+        response = register_user(email, password)
+        flash(response)
+        return redirect(url_for('upload_file'))
+    return render_template('register.html')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        if authenticate_user(email, password):
+            flash('Login successful.')
+            return redirect(url_for('upload_file'))
+        else:
+            flash('Login failed. Please check your credentials.')
+            return redirect(request.url)
+    return render_template('login.html')
 if __name__ == "__main__":
-    # Ensure the uploads folder exists
-    if not os.path.exists(UPLOAD_FOLDER):
-        os.makedirs(UPLOAD_FOLDER)
     
     app.run(host='127.0.0.1', port=5000, debug=True)
