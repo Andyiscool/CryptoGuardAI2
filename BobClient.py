@@ -80,7 +80,7 @@ if __name__ == "__main__":
     send_email(
         recipient="alice@example.com",
         sender="bob@example.com", 
-        password="password123", 
+        password="Password123!", 
         message_content="Hello Alice, this is Bob!", 
         port=1025
     )

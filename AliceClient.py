@@ -77,7 +77,7 @@ if __name__ == "__main__":
     send_email(
         recipient="bob@example.com",
         sender="alice@example.com",
-        password="securepass",
+        password="Securepass123!",
         message_content="Hello Bob, this is Alice!",
         port=1026
     )

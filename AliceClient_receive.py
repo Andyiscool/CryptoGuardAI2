@@ -25,7 +25,7 @@ def receive_messages(recipient_email, port):
 
         response = client_socket.recv(1024).decode("utf-8")
         print(response)
-        client_socket.send("securepass".encode("utf-8"))  
+        client_socket.send("Securepass123!".encode("utf-8"))  
 
         response = client_socket.recv(1024).decode("utf-8")
         print(response)
