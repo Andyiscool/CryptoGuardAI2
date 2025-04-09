@@ -71,5 +71,3 @@ def authenticate_user(email, password):
         return False
 if __name__ == "__main__":
     init_db()
-    print(register_user("bob@example.com", "Password123!"))
-    print(register_user("alice@example.com", "Securepass123!"))
