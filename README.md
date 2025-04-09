@@ -31,5 +31,5 @@ CryptoGuardAI is aimed at detecting phishing emails and securing email communica
 [7] Werkzeug: Pallets Projects. (2023). Werkzeug (version 3.0.3). https://werkzeug.palletsprojects.com/
 
 ### Datasets
-ChatGPT: OpenAI. (2024, August 29). ChatGPT. https://chatgpt.com/
+[1] ChatGPT: OpenAI. (2024, August 29). ChatGPT. https://chatgpt.com/
 
