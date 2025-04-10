@@ -12,7 +12,16 @@ import ssl
 import base64
 from user_management import register_user
 
-def send_email(recipient, sender, password, message_content, port, file_path=None):
+def send_email():
+    sender = input("Enter sender email: ")
+    password = input("Enter sender password: ")
+    recipient = input("Enter recipient email: ")
+    subject = input("Enter email subject: ")
+    message_content = input("Enter email content: ")
+    file_path = input("Enter file path for attachment (or press Enter to skip): ")
+
+    port = 1026
+
     context = ssl.create_default_context()
     context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")  # Path to the self-signed certificate
 
@@ -41,7 +50,7 @@ def send_email(recipient, sender, password, message_content, port, file_path=Non
                 recipients = recipient
 
             recipients_str = ", ".join(recipients)
-            email_data = f"From: {sender}\nTo: {recipients_str}\n\n{message_content}"
+            email_data = f"From: {sender}\nTo: {recipients_str}\nSubject: {subject}\nMessage: {message_content}"
 
             if file_path:
                 try:
@@ -77,10 +86,4 @@ def register():
     print(response)
 
 if __name__ == "__main__":
-    send_email(
-        recipient="alice@example.com",
-        sender="bob@example.com", 
-        password="Password123!", 
-        message_content="Hello Alice, this is Bob!", 
-        port=1025
-    )
+    send_email()

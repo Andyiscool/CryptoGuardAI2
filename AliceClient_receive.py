@@ -10,7 +10,9 @@ References:
 import socket
 import ssl
 
-def receive_messages(recipient_email, port):
+def receive_messages():
+    recipient_email = input("Enter recipient email")
+    port = 1101
     try:
         context = ssl.create_default_context()
         context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
@@ -56,4 +58,4 @@ def receive_messages(recipient_email, port):
         client_socket.close()
 
 if __name__ == "__main__":
-    receive_messages("alice@example.com", 1101)
+    receive_messages()
