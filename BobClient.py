@@ -2,6 +2,9 @@
 File: BobClient.py
 Author: Andy Xiao
 
+Description:
+Client for sending encrypted emails to Alice's SMTP server.
+
 References:
 - ChatGPT: OpenAI. (2024, September). ChatGPT. Retrieved from https://chatgpt.com/
 - GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
@@ -10,11 +13,49 @@ References:
 import socket
 import ssl
 import base64
-from user_management import register_user
+from cryptography.hazmat.primitives.asymmetric import padding as rsa_padding
+from cryptography.hazmat.primitives.hashes import SHA256
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives import padding
+import os
 
-def send_email(recipient, sender, password, message_content, port, file_path=None):
+def hybrid_encrypt(message, recipient_public_key_path):
+    """
+    Encrypts the message using hybrid encryption (RSA + AES).
+    """
+    aes_key = os.urandom(32)  # 256-bit AES key
+    iv = os.urandom(16)  # 128-bit IV
+
+    # Encrypt AES key with recipient's public key
+    with open(recipient_public_key_path, "rb") as key_file:
+        public_key = serialization.load_pem_public_key(key_file.read())
+    encrypted_aes_key = public_key.encrypt(
+        aes_key,
+        rsa_padding.OAEP(
+            mgf=rsa_padding.MGF1(algorithm=SHA256()),
+            algorithm=SHA256(),
+            label=None,
+        ),
+    )
+
+    # Encrypt the message with AES
+    cipher = Cipher(algorithms.AES(aes_key), modes.CBC(iv))
+    encryptor = cipher.encryptor()
+    padder = padding.PKCS7(algorithms.AES.block_size).padder()
+    padded_message = padder.update(message.encode("utf-8")) + padder.finalize()
+    encrypted_message = encryptor.update(padded_message) + encryptor.finalize()
+
+    return encrypted_aes_key, iv, encrypted_message
+
+def send_email(recipient, sender, password, message_content, port):
+    """
+    Sends an encrypted email using hybrid encryption.
+    """
     context = ssl.create_default_context()
-    context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")  # Path to the self-signed certificate
+    context.verify_mode = ssl.CERT_REQUIRED
+    context.check_hostname = False
+    context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
@@ -22,65 +63,43 @@ def send_email(recipient, sender, password, message_content, port, file_path=Non
     try:
         client_socket.connect(('localhost', port))
 
-        response = client_socket.recv(1024).decode("utf-8")
-        print(response)
-        client_socket.send(sender.encode("utf-8"))
+        # Encrypt the message
+        encrypted_aes_key, iv, encrypted_message = hybrid_encrypt(
+            message_content, "/Users/andyxiao/PostGradProjects/CryptoGuardAI/Alice_public_key.pem"
+        )
 
-        response = client_socket.recv(1024).decode("utf-8")
-        print(response)
-        client_socket.send(password.encode("utf-8"))
+        # Debugging encrypted components
+        print(f"Encrypted AES key (Base64): {base64.b64encode(encrypted_aes_key).decode('utf-8')}")
+        print(f"IV (Base64): {base64.b64encode(iv).decode('utf-8')}")
+        print(f"Encrypted message (Base64): {base64.b64encode(encrypted_message).decode('utf-8')}")
 
-        response = client_socket.recv(1024).decode("utf-8")
-        print(response)
+        # Construct email data
+        email_data = (
+            f"From: {sender}\nTo: {recipient}\n".encode("utf-8")
+            + b"Encrypted-AES-Key: " + base64.b64encode(encrypted_aes_key) + b"\n"
+            + b"IV: " + base64.b64encode(iv) + b"\n"
+            + b"Message: " + base64.b64encode(encrypted_message) + b"\n"
+        )
 
-        if "+OK" in response:
-            # Fix: Ensure recipient is a list
-            if isinstance(recipient, str):
-                recipients = [recipient]
-            else:
-                recipients = recipient
+        # Debug email data
+        print(f"Constructed email data:\n{email_data.decode('utf-8')}")
 
-            recipients_str = ", ".join(recipients)
-            email_data = f"From: {sender}\nTo: {recipients_str}\n\n{message_content}"
-
-            if file_path:
-                try:
-                    with open(file_path, 'rb') as file:
-                        file_content = file.read()
-                        encoded_file = base64.b64encode(file_content).decode('utf-8')
-                        email_data += f"\n\nAttachment: {encoded_file}"
-                        print(f"File {file_path} encoded and attached.")
-                except FileNotFoundError:
-                    print(f"Error: File {file_path} not found.")
-                    return
-
-            client_socket.send(email_data.encode("utf-8"))
-            response = client_socket.recv(1024).decode("utf-8")
-            print(response)
-        else:
-            print("Authentication failed.")
-
+        # Send email
+        client_socket.sendall(email_data)
+        print(client_socket.recv(1024).decode("utf-8"))
+    except ssl.SSLError as e:
+        print(f"SSL error: {e}")
+    except ConnectionError as e:
+        print(f"Connection error: {e}")
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
         client_socket.close()
-
-def register():
-    username = input("Enter username: ")
-    password = input("Enter password: ")
-    confirm_password = input("Confirm password: ")
-    register_user(username, password)
-    if password != confirm_password:
-        print("Passwords do not match.")
-        return
-    response = register_user(username, password)
-    print(response)
-
 if __name__ == "__main__":
     send_email(
         recipient="alice@example.com",
-        sender="bob@example.com", 
-        password="Password123!", 
-        message_content="Hello Alice, this is Bob!", 
+        sender="bob@example.com",
+        password="Securepass123!",
+        message_content="Hello Alice, this is Bob!",
         port=1025
     )
