@@ -73,15 +73,7 @@ def send_email(recipient, sender, password, message_content, port):
             print(f"Encrypted AES key (Base64): {base64.b64encode(encrypted_aes_key).decode('utf-8')}")
             print(f"IV (Base64): {base64.b64encode(iv).decode('utf-8')}")
             print(f"Encrypted message (Base64): {base64.b64encode(encrypted_message).decode('utf-8')}")
-        except FileNotFoundError:
-            print("Recipient's public key file not found.")
-            return
-        except Exception as e:
-            print(f"Error during encryption: {e}")
-            return
-
-        # Construct email data
-        try:
+       
             email_data = (
                 f"From: {sender}\nTo: {recipient}\n".encode("utf-8")
                 + b"Encrypted-AES-Key: " + base64.b64encode(encrypted_aes_key) + b"\n"

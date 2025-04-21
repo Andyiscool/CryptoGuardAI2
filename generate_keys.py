@@ -1,4 +1,10 @@
 """
+File: generate_keys.py
+Author: Andy Xiao
+
+Description:
+Generate RSA Keys for Alice and Bob.
+
 References:
 - GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
 """

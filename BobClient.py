@@ -64,22 +64,26 @@ def send_email(recipient, sender, password, message_content, port):
         client_socket.connect(('localhost', port))
 
         # Encrypt the message
-        encrypted_aes_key, iv, encrypted_message = hybrid_encrypt(
-            message_content, "/Users/andyxiao/PostGradProjects/CryptoGuardAI/Alice_public_key.pem"
-        )
+        try:
+            encrypted_aes_key, iv, encrypted_message = hybrid_encrypt(
+                message_content, "/Users/andyxiao/PostGradProjects/CryptoGuardAI/Alice_public_key.pem"
+            )
 
         # Debugging encrypted components
-        print(f"Encrypted AES key (Base64): {base64.b64encode(encrypted_aes_key).decode('utf-8')}")
-        print(f"IV (Base64): {base64.b64encode(iv).decode('utf-8')}")
-        print(f"Encrypted message (Base64): {base64.b64encode(encrypted_message).decode('utf-8')}")
+            print(f"Encrypted AES key (Base64): {base64.b64encode(encrypted_aes_key).decode('utf-8')}")
+            print(f"IV (Base64): {base64.b64encode(iv).decode('utf-8')}")
+            print(f"Encrypted message (Base64): {base64.b64encode(encrypted_message).decode('utf-8')}")
 
         # Construct email data
-        email_data = (
-            f"From: {sender}\nTo: {recipient}\n".encode("utf-8")
-            + b"Encrypted-AES-Key: " + base64.b64encode(encrypted_aes_key) + b"\n"
-            + b"IV: " + base64.b64encode(iv) + b"\n"
-            + b"Message: " + base64.b64encode(encrypted_message) + b"\n"
-        )
+            email_data = (
+                f"From: {sender}\nTo: {recipient}\n".encode("utf-8")
+                + b"Encrypted-AES-Key: " + base64.b64encode(encrypted_aes_key) + b"\n"
+                + b"IV: " + base64.b64encode(iv) + b"\n"
+                + b"Message: " + base64.b64encode(encrypted_message) + b"\n"
+            )
+        except Exception as e:
+            print(f"Error constructing email data: {e}")
+            return
 
         # Debug email data
         print(f"Constructed email data:\n{email_data.decode('utf-8')}")

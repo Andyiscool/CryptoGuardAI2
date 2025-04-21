@@ -18,13 +18,29 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 import base64
 import logging
+from pymongo import MongoClient
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Message storage
-messages = defaultdict(list)
+client = MongoClient("mongodb://localhost:27017/")
+db = client["email_db"]
+collection = db["messages"]
 
+def store_message_in_mongodb(recipient, sender, aes_key, iv, encrypted_message):
+    collection.insert_one({
+        "recipient": recipient,
+        "timestamp": datetime.utcnow().isoformat(),
+        "sender": sender,
+        "aes_key": base64.b64encode(aes_key).decode("utf-8"),
+        "iv": base64.b64encode(iv).decode("utf-8"),
+        "message": base64.b64encode(encrypted_message).decode("utf-8"),
+    })
+
+def retrieve_messages_from_mongodb(recipient):
+    return list(collection.find({"recipient": recipient}))
 def handle_smtp_client(client_socket):
     """
     Handles SMTP client connections for sending emails.
@@ -48,41 +64,15 @@ def handle_smtp_client(client_socket):
             elif line.startswith(b"From:"):
                 sender = line.split(b":", 1)[1].strip().decode("utf-8")
             elif line.startswith(b"Encrypted-AES-Key:"):
-                try:
-                    encrypted_aes_key = base64.b64decode(line.split(b":", 1)[1].strip())
-                except Exception as e:
-                    logging.error(f"Error decoding AES key: {e}")
-                    continue
+                encrypted_aes_key = base64.b64decode(line.split(b":", 1)[1].strip()) 
             elif line.startswith(b"IV:"):
-                try:
-                    iv = base64.b64decode(line.split(b":", 1)[1].strip())
-                except Exception as e:
-                    logging.error(f"Error decoding IV: {e}")
-                    continue
+                iv = base64.b64decode(line.split(b":", 1)[1].strip())
             elif line.startswith(b"Message:"):
-                try:
-                    encrypted_message = base64.b64decode(line.split(b":", 1)[1].strip())
-                except Exception as e:
-                    logging.error(f"Error decoding message: {e}")
-                    continue
+                encrypted_message = base64.b64decode(line.split(b":", 1)[1].strip())
 
         if recipients and sender and encrypted_aes_key and iv and encrypted_message:
-            if len(encrypted_aes_key) != 256:  # Validate RSA key size (2048 bits)
-                logging.warning(f"Invalid RSA-encrypted AES key size: {len(encrypted_aes_key)} bytes")
-                client_socket.send(b"550 Invalid RSA-encrypted AES key size\n")
-                return
-            if len(iv) != 16:  # Validate IV size
-                logging.warning(f"Invalid IV size: {len(iv)} bytes")
-                client_socket.send(b"550 Invalid IV size\n")
-                return
-
             for recipient in recipients:
-                messages[recipient].append({
-                    "from": sender,
-                    "aes_key": encrypted_aes_key,
-                    "iv": iv,
-                    "message": encrypted_message,
-                })
+                store_message_in_mongodb(recipient, sender, encrypted_aes_key, iv, encrypted_message)
             client_socket.send(b"250 OK\n")
             logging.info(f"Message stored for recipients: {recipients}")
         else:
@@ -102,19 +92,15 @@ def handle_pop3_client(client_socket):
         recipient_address = client_socket.recv(1024).decode("utf-8").strip()
         logging.info(f"Received POP3 request for: {recipient_address}")
 
-        if recipient_address in messages and messages[recipient_address]:
-            client_socket.send(f"+OK {len(messages[recipient_address])} messages\n".encode("utf-8"))
-            for idx, msg in enumerate(messages[recipient_address], 1):
+        messages = retrieve_messages_from_mongodb(recipient_address)
+        if messages:
+            client_socket.send(f"+OK {len(messages)} messages\n".encode("utf-8"))
+            for msg in messages:
                 # Send encrypted components
-                client_socket.send(base64.b64encode(msg["aes_key"]) + b"\n")
-                client_socket.send(base64.b64encode(msg["iv"]) + b"\n")
-                client_socket.send(base64.b64encode(msg["message"]) + b"\n")
-
-                # Debugging sent components
-                logging.info(f"Sent AES key (Base64): {base64.b64encode(msg['aes_key']).decode('utf-8')}")
-                logging.info(f"Sent IV (Base64): {base64.b64encode(msg['iv']).decode('utf-8')}")
-                logging.info(f"Sent Message (Base64): {base64.b64encode(msg['message']).decode('utf-8')}")
-            logging.info(f"Sent {len(messages[recipient_address])} messages to {recipient_address}")
+                client_socket.send(base64.b64encode(base64.b64decode(msg["aes_key"])) + b"\n")
+                client_socket.send(base64.b64encode(base64.b64decode(msg["iv"])) + b"\n")
+                client_socket.send(base64.b64encode(base64.b64decode(msg["message"])) + b"\n")
+                logging.info(f"Sent message to {recipient_address}")
         else:
             client_socket.send(b"-ERR No messages for this recipient\n")
             logging.warning(f"No messages found for recipient: {recipient_address}")
