@@ -105,5 +105,5 @@ if __name__ == "__main__":
         sender="bob@example.com",
         password="Securepass123!",
         message_content="Hello Alice, this is Bob!",
-        port=1025
+        port=2525
     )

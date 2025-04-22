@@ -108,6 +108,28 @@ def handle_pop3_client(client_socket):
         logging.error(f"Error handling POP3 client: {e}")
     finally:
         client_socket.close()
+def start_smtp_server(port_smtp, context):
+    smtp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    smtp_server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    smtp_server = context.wrap_socket(smtp_server, server_side=True)
+    smtp_server.bind(('localhost', port_smtp))
+    smtp_server.listen(5)
+    logging.info(f"Alice's SMTP server running on port {port_smtp}")
+    while True:
+        client_socket, _ = smtp_server.accept()
+        threading.Thread(target=handle_smtp_client, args=(client_socket,)).start()
+
+def start_pop3_server(port_pop3, context):
+    pop3_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    pop3_server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    pop3_server = context.wrap_socket(pop3_server, server_side=True)
+    pop3_server.bind(('localhost', port_pop3))
+    pop3_server.listen(5)
+    logging.info(f"Alice's POP3 server running on port {port_pop3}")
+    while True:
+        client_socket, _ = pop3_server.accept()
+        threading.Thread(target=handle_pop3_client, args=(client_socket,)).start()
+
 def start_server(port_smtp, port_pop3):
     """
     Starts the SMTP and POP3 servers.
@@ -118,27 +140,11 @@ def start_server(port_smtp, port_pop3):
         keyfile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.key"
     )
 
-    smtp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    smtp_server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    smtp_server = context.wrap_socket(smtp_server, server_side=True)
-    smtp_server.bind(('localhost', port_smtp))
-    smtp_server.listen(5)
+    threading.Thread(target=start_smtp_server, args=(port_smtp, context), daemon = True).start()
 
-    pop3_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    pop3_server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    pop3_server = context.wrap_socket(pop3_server, server_side=True)
-    pop3_server.bind(('localhost', port_pop3))
-    pop3_server.listen(5)
-
-    logging.info(f"Bob's SMTP server running on port {port_smtp}")
-    logging.info(f"Bob's POP3 server running on port {port_pop3}")
-
+    threading.Thread(target=start_pop3_server, args=(port_pop3, context), daemon=True).start()
+    logging.info(f"Alice server running")
     while True:
-        client_socket, _ = smtp_server.accept()
-        threading.Thread(target=handle_smtp_client, args=(client_socket,)).start()
-
-        client_socket, _ = pop3_server.accept()
-        threading.Thread(target=handle_pop3_client, args=(client_socket,)).start()
-
+        pass
 if __name__ == "__main__":
     start_server(1026, 1102)

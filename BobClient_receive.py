@@ -143,4 +143,4 @@ def receive_messages(recipient_email, port):
     finally:
         client_socket.close()
 if __name__ == "__main__":
-    receive_messages("bob@example.com", 1102)
+    receive_messages("bob@example.com", 2526)
