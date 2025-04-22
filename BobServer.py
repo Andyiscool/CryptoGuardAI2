@@ -20,27 +20,105 @@ import base64
 import logging
 from pymongo import MongoClient
 from datetime import datetime
+import time
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Message storage
-client = MongoClient("mongodb://localhost:27017/")
-db = client["email_db"]
-collection = db["messages"]
+try:
+    primary_client = MongoClient("mongodb://localhost:27017/")
+    primary_db = primary_client["email_db"]
+    primary_collection = primary_db["messages"]
+    logging.info("Connected to primary MongoDB.")
+except Exception as e:
+    logging.error(f"Error connecting to primary MongoDB: {e}")
+    exit(1)
+try:
+    backup_client = MongoClient("mongodb://localhost:27018/")
+    backup_db = backup_client["email_db_backup"]
+    backup_collection = backup_db["messages"]
+    logging.info("Connected to backup MongoDB.")
+except Exception as e:
+    logging.error(f"Error connecting to backup MongoDB: {e}")
+    exit(1)
+def is_database_healthy(client):
+    try:
+        client.admin.command('ping')
+        return True
+    except Exception as e:
+        logging.error(f"Database health check failed: {e}")
+        return False
 
+def retry_operation(operation, retries=3, delay=2):
+    for attempt in range(retries):
+        try:
+            return operation()
+        except Exception as e:
+            logging.error(f"Attempt {attempt + 1} failed: {e}")
+            time.sleep(delay)
+    logging.error("All retry attempts failed.")
+    return None
+def notify_admin(message):
+    logging.error(f"ADMIN NOTIFICATION: {message}")
+def check_database_consistency():
+    primary_messages = list(primary_collection.find())
+    backup_messages = list(backup_collection.find())
+    if len(primary_messages) != len(backup_messages):
+        logging.warning("Primary and backup databases are out of sync!")
+def run_periodic_consistency_check(interval=300):
+    while True:
+        logging.info("Running periodic database consistency check...")
+        check_database_consistency()
+        time.sleep(interval)
+def handle_admin_commands():
+    while True:
+        command = input("Enter admin command: ")
+        if command == "check_consistency":
+            check_database_consistency()
+        elif command == "exit":
+            break
 def store_message_in_mongodb(recipient, sender, aes_key, iv, encrypted_message):
-    collection.insert_one({
+    message_data = {
         "recipient": recipient,
         "timestamp": datetime.utcnow().isoformat(),
         "sender": sender,
         "aes_key": base64.b64encode(aes_key).decode("utf-8"),
         "iv": base64.b64encode(iv).decode("utf-8"),
         "message": base64.b64encode(encrypted_message).decode("utf-8"),
-    })
+    }
+
+    if is_database_healthy(primary_client):
+        retry_operation(lambda: primary_collection.insert_one(message_data))
+        logging.info("Message stored in primary database.")
+    else:
+        logging.error("Primary database is not available. Skipping write.")
+
+    retry_operation(lambda: backup_collection.insert_one(message_data))
+    logging.info("Message stored in backup database.")
+    check_database_consistency()
 
 def retrieve_messages_from_mongodb(recipient):
-    return list(collection.find({"recipient": recipient}))
+    if is_database_healthy(primary_client):
+        try:
+            messages = list(primary_collection.find({"recipient": recipient}))
+            if messages:
+                logging.info(f"Retrieved {len(messages)} messages from primary database for recipient: {recipient}")
+                return messages
+            else:
+                logging.warning(f"No messages found for recipient: {recipient} in primary database.")
+        except Exception as e:
+            logging.error(f"Error retrieving messages from primary database: {e}")
+    try:
+        messages = list(backup_collection.find({"recipient": recipient}))
+        if messages:
+            logging.info(f"Retrieved {len(messages)} messages from backup database for recipient: {recipient}")
+            return messages
+        else:
+            logging.warning(f"No messages found for recipient: {recipient} in backup database.")
+    except Exception as e:
+        logging.error(f"Error retrieving messages from backup database: {e}")
+    return []
 def handle_smtp_client(client_socket):
     """
     Handles SMTP client connections for sending emails.
@@ -139,10 +217,12 @@ def start_server(port_smtp, port_pop3):
         certfile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt",
         keyfile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.key"
     )
+    logging.info("Checking database consistency...")
 
     threading.Thread(target=start_smtp_server, args=(port_smtp, context), daemon = True).start()
 
     threading.Thread(target=start_pop3_server, args=(port_pop3, context), daemon=True).start()
+    threading.Thread(target=handle_admin_commands, daemon=True).start()
     logging.info(f"Alice server running")
     while True:
         pass
