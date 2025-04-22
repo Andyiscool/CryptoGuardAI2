@@ -3,7 +3,7 @@ File: BobServer.py
 Author: Andy Xiao
 
 Description:
-SMTP and POP3 server for handling encrypted email communication for Alice.
+SMTP and POP3 server for handling encrypted email communication for Bob.
 
 References:
 - ChatGPT: OpenAI. (2024, September). ChatGPT. Retrieved from https://chatgpt.com/
