@@ -6,7 +6,7 @@ Description:
 Generate RSA Keys.
 
 References:
-- GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
+- GitHub Copilot: GitHub. (2025). Github Copilot. Retrieved from https://github.com/features/copilot
 """
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization

@@ -6,8 +6,8 @@ Description:
 Client for sending encrypted emails to Alice's SMTP server.
 
 References:
-- ChatGPT: OpenAI. (2024, September). ChatGPT. Retrieved from https://chatgpt.com/
-- GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
+- ChatGPT: OpenAI. (2024-25). ChatGPT. Retrieved from https://chatgpt.com/
+- GitHub Copilot: GitHub. (2025). Github Copilot. Retrieved from https://github.com/features/copilot
 """
 
 import socket

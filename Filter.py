@@ -3,7 +3,7 @@ File: Filter.py
 Author: Andy Xiao
 
 References:
-- ChatGPT: OpenAI. (2024, August 29). ChatGPT. Retrieved from https://chatgpt.com/
+- ChatGPT: OpenAI. (2024-25). ChatGPT. Retrieved from https://chatgpt.com/
 """
 import os
 from Phish_detection import load_data, preprocess_and_vectorize, train_model, classify_email

@@ -4,8 +4,8 @@ Author: Andy Xiao
 
 References:
 - Flask: Pallets Projects. (2023). Flask (version 2.2.3). Retrieved from https://flask.palletsprojects.com/
-- ChatGPT: OpenAI. (2024, August 29). ChatGPT. Retrieved from https://chatgpt.com/
-- GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
+- ChatGPT: OpenAI. (2024-25). ChatGPT. Retrieved from https://chatgpt.com/
+- GitHub Copilot: GitHub. (2025). Github Copilot. Retrieved from https://github.com/features/copilot
 - Werkzeug: Pallets Projects. (2023). Werkzeug (version 2.2.3). Retrieved from https://werkzeug.palletsprojects.com/
 """
 from flask import Flask, render_template, request, redirect, url_for, flash

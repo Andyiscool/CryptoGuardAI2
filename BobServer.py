@@ -6,8 +6,8 @@ Description:
 SMTP and POP3 server for handling encrypted email communication for Bob.
 
 References:
-- ChatGPT: OpenAI. (2024, September). ChatGPT. Retrieved from https://chatgpt.com/
-- GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
+- ChatGPT: OpenAI. (2024-25). ChatGPT. Retrieved from https://chatgpt.com/
+- GitHub Copilot: GitHub. (2025). Github Copilot. Retrieved from https://github.com/features/copilot
 """
 
 import socket

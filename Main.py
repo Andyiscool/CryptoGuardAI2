@@ -4,7 +4,7 @@ Author: Andy Xiao
 
 References:
 - Flask: Pallets Projects. (2023). Flask (version 2.2.3). Retrieved from https://flask.palletsprojects.com/
-- ChatGPT: OpenAI. (2024, August 29). ChatGPT. Retrieved from https://chatgpt.com/
+- ChatGPT: OpenAI. (2024-25). ChatGPT. Retrieved from https://chatgpt.com/
 - Werkzeug: Pallets Projects. (2023). Werkzeug (version 2.2.3). Retrieved from https://werkzeug.palletsprojects.com/
 """
 from Phish_detection import load_data, preprocess_and_vectorize, train_model, classify_email

@@ -7,7 +7,7 @@ Description:
 Setup SQLite database for storing encrypted messages.
 
 References:
-- GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
+- GitHub Copilot: GitHub. (2025). Github Copilot. Retrieved from https://github.com/features/copilot
 """
 import sqlite3
 def create_database():

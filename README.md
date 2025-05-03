@@ -18,18 +18,16 @@ CryptoGuardAI is aimed at detecting phishing emails and securing email communica
 ### Code
 [1] Flask: Pallets Projects. (2023). Flask (version 3.0.3). https://flask.palletsprojects.com/
 
-[2] ChatGPT: OpenAI. (2024, August 29). ChatGPT. https://chatgpt.com/
+[2] ChatGPT: OpenAI. (2024-25). ChatGPT. https://chatgpt.com/
 
-[3] ChatGPT: OpenAI. (2024, September). ChatGPT. https://chatgpt.com/
+[3] GitHub Copilot: GitHub. (2025). Github Copilot. https://github.com/features/copilot
 
-[4] GitHub Copilot: GitHub. (2025, April). Github Copilot. https://github.com/features/copilot
+[4] Pandas: Pandas Development Team. (2024). Pandas (version 2.2.2). https://pandas.pydata.org/
 
-[5] Pandas: Pandas Development Team. (2024). Pandas (version 2.2.2). https://pandas.pydata.org/
+[5] Scikit-learn: Scikit-learn developers. (2024, August 29). Scikit-learn: Machine learning in Python (version 1.5.1). https://scikit-learn.org/
 
-[6] Scikit-learn: Scikit-learn developers. (2024, August 29). Scikit-learn: Machine learning in Python (version 1.5.1). https://scikit-learn.org/
-
-[7] Werkzeug: Pallets Projects. (2023). Werkzeug (version 3.0.3). https://werkzeug.palletsprojects.com/
+[6] Werkzeug: Pallets Projects. (2023). Werkzeug (version 3.0.3). https://werkzeug.palletsprojects.com/
 
 ### Datasets
-[1] ChatGPT: OpenAI. (2024, August 29). ChatGPT. https://chatgpt.com/
+[1] ChatGPT: OpenAI. (2024-25). ChatGPT. https://chatgpt.com/
 

@@ -6,7 +6,7 @@ Description:
 Balance the loads between multiple servers
 
 References:
-- GitHub Copilot: GitHub. (2025, April). Github Copilot. Retrieved from https://github.com/features/copilot
+- GitHub Copilot: GitHub. (2025). Github Copilot. Retrieved from https://github.com/features/copilot
 """
 import socket
 import threading

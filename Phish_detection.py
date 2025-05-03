@@ -3,7 +3,7 @@ File: Phish_detection.py
 Author: Andy Xiao
 
 References:
-- ChatGPT: OpenAI. (2024, August 29). ChatGPT. Retrieved from https://chatgpt.com/
+- ChatGPT: OpenAI. (2024-25). ChatGPT. Retrieved from https://chatgpt.com/
 - Pandas: Pandas Development Team. (2024). Pandas (version 2.0.2). Retrieved from https://pandas.pydata.org/
 - Scikit-learn: Scikit-learn developers. (2024, August 29). Scikit-learn: Machine learning in Python (version 1.2.2). Retrieved from https://scikit-learn.org/
 """
