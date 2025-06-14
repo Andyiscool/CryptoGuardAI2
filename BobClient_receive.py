@@ -142,5 +142,84 @@ def receive_messages(recipient_email, port):
         print(f"An error occurred: {e}")
     finally:
         client_socket.close()
+
+import ssl
+
+def delete_email(email_id, port):
+    try:
+        context = ssl.create_default_context()
+        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
+        client_socket.connect(('localhost', port))
+        client_socket.recv(1024)  # Receive initial greeting
+        command = f"DELETE:{email_id}\n"
+        client_socket.sendall(command.encode("utf-8"))
+        response = client_socket.recv(1024).decode("utf-8")
+        print(f"Server response: {response}")
+    except Exception as e:
+        print(f"Error sending deletion request: {e}")
+    finally:
+        client_socket.close()
+def hard_delete_email(email_id, port):
+    try:
+        context = ssl.create_default_context()
+        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
+        client_socket.connect(('localhost', port))
+        client_socket.recv(1024)
+        command = f"HARD_DELETE:{email_id}\n"
+        client_socket.sendall(command.encode("utf-8"))
+        response = client_socket.recv(1024).decode("utf-8")
+        print(f"Server response: {response}")
+    except Exception as e:
+        print(f"Error sending hard deletion request: {e}")
+    finally:
+        client_socket.close()
+
+def retain_email(email_id, retention_days, port):
+    try:
+        context = ssl.create_default_context()
+        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
+        client_socket.connect(('localhost', port))
+        client_socket.recv(1024)  # Receive initial greeting
+        command = f"RETAIN:{email_id}:{retention_days}\n"
+        client_socket.sendall(command.encode("utf-8"))
+        response = client_socket.recv(1024).decode("utf-8")
+        print(f"Server response: {response}")
+    except Exception as e:
+        print(f"Error sending retention request: {e}")
+    finally:
+        client_socket.close()
+
+def manage_emails_menu(port):
+    while True:
+        print("\nOptions:")
+        print("1. Delete an email")
+        print("2. Retain an email")
+        print("3. Hard delete an email")
+        print("4. Exit")
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            email_id = input("Enter the email ID to delete: ")
+            delete_email(email_id, port)
+        elif choice == '2':
+            email_id = input("Enter the email ID to retain: ")
+            retention_days = int(input("Enter the number of days to retain: "))
+            retain_email(email_id, retention_days, port)
+        elif choice == '3':
+            email_id = input("Enter the email ID to hard delete: ")
+            hard_delete_email(email_id, port)
+        elif choice == '4':
+            print("Exiting the menu.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
 if __name__ == "__main__":
     receive_messages("bob@example.com", 2526)
+    manage_emails_menu(2526)

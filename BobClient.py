@@ -48,6 +48,77 @@ def hybrid_encrypt(message, recipient_public_key_path):
 
     return encrypted_aes_key, iv, encrypted_message
 
+def delete_email(email_id, port):
+    try:
+        context = ssl.create_default_context()
+        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(('localhost', port))
+        client_socket.recv(1024)  # Receive welcome message
+        command = f"DELETE:{email_id}\n"
+        client_socket.sendall(command.encode('utf-8'))
+        response = client_socket.recv(1024).decode('utf-8')
+        print(f"Server response: {response}")
+    except Exception as e:
+        print(f"Error sending deletion request: {e}")
+    finally:
+        client_socket.close()
+def hard_delete_email(email_id, port):
+    try:
+        context = ssl.create_default_context()
+        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
+        client_socket.connect(('localhost', port))
+        client_socket.recv(1024)
+        command = f"HARD_DELETE:{email_id}\n"
+        client_socket.sendall(command.encode("utf-8"))
+        response = client_socket.recv(1024).decode("utf-8")
+        print(f"Server response: {response}")
+    except Exception as e:
+        print(f"Error sending hard deletion request: {e}")
+    finally:
+        client_socket.close()
+def retain_email(email_id, retention_days, port):
+    try:
+        context = ssl.create_default_context()
+        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(('localhost', port))
+        client_socket.recv(1024)  # Receive welcome message
+        command = f"RETAIN:{email_id}:{retention_days}\n"
+        client_socket.sendall(command.encode('utf-8'))
+        response = client_socket.recv(1024).decode('utf-8')
+        print(f"Server response: {response}")
+    except Exception as e:
+        print(f"Error sending retention request: {e}")
+    finally:
+        client_socket.close()
+
+def interactive_menu(port):
+    while True:
+        print("\nOptions:")
+        print("1. Delete an email")
+        print("2. Retain an email")
+        print("3. Hard delete an email")
+        print("4. Exit")
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            email_id = input("Enter the email ID to delete: ")
+            delete_email(email_id, port)
+        elif choice == '2':
+            email_id = input("Enter the email ID to retain: ")
+            retention_days = int(input("Enter the number of days to retain: "))
+            retain_email(email_id, retention_days, port)
+        elif choice == '3':
+            email_id = input("Enter the email ID to hard delete: ")
+            hard_delete_email(email_id, port)
+        elif choice == '4':
+            print("Exiting the menu.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
 def send_email(recipient, sender, password, message_content, port):
     """
     Sends an encrypted email using hybrid encryption.
@@ -100,10 +171,19 @@ def send_email(recipient, sender, password, message_content, port):
     finally:
         client_socket.close()
 if __name__ == "__main__":
-    send_email(
-        recipient="alice@example.com",
-        sender="bob@example.com",
-        password="Securepass123!",
-        message_content="Hello Alice, this is Bob!",
-        port=2525
-    )
+    print("1. Send email")
+    print("2. Manage email retention/deletion")
+    choice = input("Enter your choice: ")
+    if choice == "1":
+        send_email(
+            recipient="alice@example.com",
+            sender="bob@example.com",
+            password="Securepass123!",
+            message_content="Hello Alice, this is Bob!",
+            port=2525
+        )
+    elif choice == "2":
+        # Use the POP3 port (e.g., 1102)
+        interactive_menu(2526)
+    else:
+        print("Invalid choice.")

@@ -19,7 +19,8 @@ from cryptography.hazmat.primitives import padding
 import base64
 import logging
 from pymongo import MongoClient
-from datetime import datetime
+from bson.objectid import ObjectId
+from datetime import datetime, timedelta
 import time
 
 # Configure logging
@@ -92,6 +93,9 @@ def store_message_in_mongodb(recipient, sender, aes_key, iv, encrypted_message):
         "aes_key": base64.b64encode(aes_key).decode("utf-8"),
         "iv": base64.b64encode(iv).decode("utf-8"),
         "message": base64.b64encode(encrypted_message).decode("utf-8"),
+        "deleted": False,
+        "deleted_at": None,
+        "retain_until": None
     }
     for db in databases:
         if is_database_healthy(db["client"]):
@@ -105,24 +109,107 @@ def store_message_in_mongodb(recipient, sender, aes_key, iv, encrypted_message):
             logging.warning(f"{db['name']} database is not available. Skipping write.")
     synchronize_databases()
 
+def mark_email_for_retention(email_id, retention_period_days):
+    """
+    Marks an email for retention by adding a retention period.
+    """
+    try:
+        retention_date = datetime.utcnow() + timedelta(days=retention_period_days)
+        result = primary_collection.update_one(
+            {"_id": ObjectId(email_id)},
+            {"$set": {"retention_date": retention_date}}
+        )
+        if result.modified_count > 0:
+            logging.info(f"Email {email_id} marked for retention until {retention_date}.")
+        else:
+            logging.warning(f"No email found withID {email_id}.")
+    except Exception as e:
+        logging.error(f"Error marking email for retention: {e}")
+
+def soft_delete_email(email_id):
+    try:
+        for db in databases:
+            result = db["collection"].update_one(
+                {"_id": ObjectId(email_id)},
+                {"$set": {"deleted": True, "deletion_date": datetime.utcnow()}}
+            )
+            if result.modified_count > 0:
+                logging.info(f"Email {email_id} soft deleted in {db['name']} database.")
+            else:
+                logging.warning(f"Email {email_id} not found in {db['name']} database.")
+    except Exception as e:
+        logging.error(f"Error soft deleting email: {e}")
+def hard_delete_email(email_id):
+    try:
+        for db in databases:
+            result = db["collection"].delete_one({"_id": ObjectId(email_id)})
+            if result.deleted_count > 0:
+                logging.info(f"email {email_id} deleted")
+            else:
+                logging.warning(f"Email {email_id} not found")
+    except Exception as e:
+        logging.error(f"error hard deleting email: {e}")
+            
+def enforce_retention_policy():
+    try:
+        now = datetime.utcnow()
+        emails_to_protect = primary_collection.find({"retention_date": {"$gt": now}})
+        for email in emails_to_protect:
+            logging.info(f"Email {email['_id']} is under retention until {email['retention_date']}.")
+    except Exception as e:
+        logging.error(f"Error enforcing retention policy: {e}")  
+
+def handle_admin_commands():
+    while True:
+        command = input("Enter admin command: ")
+        if command == "check_consistency":
+            check_database_consistency()
+        elif command == "synchronize_all":
+            synchronize_databases()
+        elif command == "mark_retention":
+            email_id = input("Enter email ID to retain: ")
+            retention_days = int(input("Enter retention period in days: "))
+            mark_email_for_retention(email_id, retention_days)
+        elif command == "delete_email":
+            email_id = input("Enter email ID to delete: ")
+            soft_delete_email(email_id)
+        elif command == "enforce_retention":
+            enforce_retention_policy()
+        elif command == "exit":
+            break
+def run_retention_enforcement(interval=86400):  # Run every 24 hours
+    while True:
+        logging.info("Enforcing retention policy...")
+        enforce_retention_policy()
+        time.sleep(interval)
+
 def synchronize_databases():
     try:
-        for source_db in databases:
-            if is_database_healthy(source_db["client"]):
-                logging.info(f"Synchronizing from {source_db['name']} database...")
-                source_messages = list(source_db["collection"].find())
+        primary_ids = set(doc["_id"] for doc in primary_collection.find({},{"_id": 1}))
+        backup_ids = set(doc["_id"] for doc in backup_collection.find({},{"_id": 1}))
+        all_ids = primary_ids.union(backup_ids)
 
-                for target_db in databases:
-                    if target_db["name"] != source_db["name"]:
-                        if is_database_healthy(target_db["client"]):
-                            for message in source_messages:
-                                if not target_db["collection"].find_one({"_id": message["_id"]}):
-                                    target_db["collection"].insert_one(message)
-                                    logging.info(f"Synchronized message with ID {message['_id']} to {target_db['name']} database.")
-                        else:
-                            logging.warning(f"Target database {target_db['name']} is unavailable. Skipping synchronization.")
-            else:
-                logging.warning(f"Source database {source_db['name']} is unavailable. Skipping synchronization.")
+        for _id in all_ids:
+            primary_doc = primary_collection.find_one({"_id": _id})
+            backup_doc = backup_collection.find_one({"_id": _id})
+
+            if primary_doc and not backup_doc:
+                backup_collection.insert_one(primary_doc)
+                logging.info(f"Synchronized document with ID {_id} to backup database.")
+            elif backup_doc and not primary_doc:
+                primary_collection.insert_one(backup_doc)
+                logging.info(f"Synchronized document with ID {_id} to primary database.")
+            elif primary_doc and backup_doc:
+                if primary_doc != backup_doc:
+                    primarytime = primary_doc.get("deletion_date") or primary_doc.get("timestamp")
+                    backuptime = backup_doc.get("deletion_date") or backup_doc.get("timestamp")
+                    if str(primarytime) > str(backuptime):
+                        backup_collection.replace_one({"_id": _id}, primary_doc)
+                        logging.info(f"Updated backup document with ID {_id} from primary database.")
+                    else:
+                        primary_collection.replace_one({"_id": _id}, backup_doc)
+                        logging.info(f"Updated primary document with ID {_id} from backup database.")
+
     except Exception as e:
         logging.error(f"Error during synchronization: {e}")
     
@@ -201,21 +288,40 @@ def handle_pop3_client(client_socket):
     """
     try:
         client_socket.send(b"+OK POP3 server ready\n")
-        recipient_address = client_socket.recv(1024).decode("utf-8").strip()
-        logging.info(f"Received POP3 request for: {recipient_address}")
-
-        messages = retrieve_messages_from_mongodb(recipient_address)
-        if messages:
-            client_socket.send(f"+OK {len(messages)} messages\n".encode("utf-8"))
-            for msg in messages:
-                # Send encrypted components
-                client_socket.send(base64.b64encode(base64.b64decode(msg["aes_key"])) + b"\n")
-                client_socket.send(base64.b64encode(base64.b64decode(msg["iv"])) + b"\n")
-                client_socket.send(base64.b64encode(base64.b64decode(msg["message"])) + b"\n")
-                logging.info(f"Sent message to {recipient_address}")
+        command = client_socket.recv(1024).decode("utf-8").strip()
+        if command.startswith("DELETE"):
+            _, email_id = command.split(":", 1)
+            soft_delete_email(email_id)
+            client_socket.send(b"+OK Email marked for deletion\n")
+            return
+        elif command.startswith("HARD_DELETE"):
+            _, email_id = command.split(":", 1)
+            hard_delete_email(email_id)
+            client_socket.send(b"+OK Email permanently deleted\n")
+            return
+        elif command.startswith("RETAIN"):
+            _, email_id, days = command.split(":")
+            mark_email_for_retention(email_id, int(days))
+            client_socket.send(b"+OK Email marked for retention\n")
+            return
         else:
-            client_socket.send(b"-ERR No messages for this recipient\n")
-            logging.warning(f"No messages found for recipient: {recipient_address}")
+            recipient_address = command
+
+    
+            logging.info(f"Received POP3 request for: {recipient_address}")
+
+            messages = retrieve_messages_from_mongodb(recipient_address)
+            if messages:
+                client_socket.send(f"+OK {len(messages)} messages\n".encode("utf-8"))
+                for msg in messages:
+                    # Send encrypted components
+                    client_socket.send(base64.b64encode(base64.b64decode(msg["aes_key"])) + b"\n")
+                    client_socket.send(base64.b64encode(base64.b64decode(msg["iv"])) + b"\n")
+                    client_socket.send(base64.b64encode(base64.b64decode(msg["message"])) + b"\n")
+                    logging.info(f"Sent message to {recipient_address}")
+            else:
+                client_socket.send(b"-ERR No messages for this recipient\n")
+                logging.warning(f"No messages found for recipient: {recipient_address}")
     except Exception as e:
         logging.error(f"Error handling POP3 client: {e}")
     finally:
@@ -255,12 +361,12 @@ def start_server(port_smtp, port_pop3):
     synchronize_databases()
     logging.info("Checking database consistency...")
 
-    threading.Thread(target=start_smtp_server, args=(port_smtp, context), daemon = True).start()
-
+    threading.Thread(target=start_smtp_server, args=(port_smtp, context), daemon=True).start()
     threading.Thread(target=start_pop3_server, args=(port_pop3, context), daemon=True).start()
     threading.Thread(target=run_periodic_synchronization, daemon=True).start()
+    threading.Thread(target=run_retention_enforcement, daemon=True).start()
     threading.Thread(target=handle_admin_commands, daemon=True).start()
-    logging.info(f"Alice server running")
+    logging.info(f"Server running on SMTP port {port_smtp} and POP3 port {port_pop3}")
     while True:
         pass
 if __name__ == "__main__":
