@@ -126,12 +126,17 @@ def mark_email_for_retention(email_id, retention_period_days):
     except Exception as e:
         logging.error(f"Error marking email for retention: {e}")
 
-def soft_delete_email(email_id):
+def soft_delete_email(email_id, retention_time):
     try:
+        retention_until = datetime.utcnow() + timedelta(minutes=retention_time)
         for db in databases:
             result = db["collection"].update_one(
                 {"_id": ObjectId(email_id)},
-                {"$set": {"deleted": True, "deletion_date": datetime.utcnow()}}
+                {"$set": {
+                    "deleted": True,
+                    "deletion_date": datetime.utcnow(),
+                    "retention_until": retention_until
+                }}
             )
             if result.modified_count > 0:
                 logging.info(f"Email {email_id} soft deleted in {db['name']} database.")
@@ -141,21 +146,35 @@ def soft_delete_email(email_id):
         logging.error(f"Error soft deleting email: {e}")
 def hard_delete_email(email_id):
     try:
+        now = datetime.utcnow()
         for db in databases:
-            result = db["collection"].delete_one({"_id": ObjectId(email_id)})
-            if result.deleted_count > 0:
-                logging.info(f"email {email_id} deleted")
+            email = db["collection"].find_one({"_id": ObjectId(email_id)})
+            if email:
+                retention_until = email.get("retention_until")
+                if retention_until and retention_until > now:
+                    logging.info(f"Email {email_id} is still under retention until {retention_until}, skipping hard delete.")
+                    continue
+                result = db["collection"].delete_one({"_id": ObjectId(email_id)})
+                if result.deleted_count > 0:
+                    logging.info(f"email {email_id} deleted from {db['name']} database.")
+                else:
+                    logging.warning(f"Email {email_id} not found in {db['name']} database.")
             else:
-                logging.warning(f"Email {email_id} not found")
+                logging.warning(f"Email {email_id} not found in {db['name']} database.")
     except Exception as e:
         logging.error(f"error hard deleting email: {e}")
-            
+                       
 def enforce_retention_policy():
     try:
         now = datetime.utcnow()
-        emails_to_protect = primary_collection.find({"retention_date": {"$gt": now}})
-        for email in emails_to_protect:
-            logging.info(f"Email {email['_id']} is under retention until {email['retention_date']}.")
+        for db in databases:
+            expired = db["collection"].find({
+                "deleted": True,
+                "retention_until": {"$lt": now}
+            })
+            for email in expired:
+                db["collection"].delete_one({"_id": email["_id"]})
+                logging.info(f"Email {email['_id']} permanently deleted due to retention policy.")
     except Exception as e:
         logging.error(f"Error enforcing retention policy: {e}")  
 
@@ -185,6 +204,7 @@ def run_retention_enforcement(interval=86400):  # Run every 24 hours
 
 def synchronize_databases():
     try:
+        now = datetime.utcnow()
         primary_ids = set(doc["_id"] for doc in primary_collection.find({},{"_id": 1}))
         backup_ids = set(doc["_id"] for doc in backup_collection.find({},{"_id": 1}))
         all_ids = primary_ids.union(backup_ids)
@@ -194,11 +214,20 @@ def synchronize_databases():
             backup_doc = backup_collection.find_one({"_id": _id})
 
             if primary_doc and not backup_doc:
-                backup_collection.insert_one(primary_doc)
-                logging.info(f"Synchronized document with ID {_id} to backup database.")
+                if not primary_doc.get("deleted") or (primary_doc.get("retention_until") and primary_doc["retention_until"] > now):
+                    backup_collection.insert_one(primary_doc)
+                    logging.info(f"Synchronized document with ID {_id} to backup database.")
+                else:
+                    primary_collection.delete_one({"_id": _id})
+                    logging.info(f"Deleted document with ID {_id} from primary database (expired retention).")
+
             elif backup_doc and not primary_doc:
-                primary_collection.insert_one(backup_doc)
-                logging.info(f"Synchronized document with ID {_id} to primary database.")
+                if not backup_doc.get("deleted") or (backup_doc.get("retention_until") and backup_doc["retention_until"] > now):
+                    primary_collection.insert_one(backup_doc)
+                    logging.info(f"Synchronized document with ID {_id} to primary database.")
+                else:
+                    backup_collection.delete_one({"_id": _id})
+                    logging.info(f"Hard deleted document with ID {_id} from backup database (expired retention).")
             elif primary_doc and backup_doc:
                 if primary_doc != backup_doc:
                     primarytime = primary_doc.get("deletion_date") or primary_doc.get("timestamp")
@@ -290,14 +319,22 @@ def handle_pop3_client(client_socket):
         client_socket.send(b"+OK POP3 server ready\n")
         command = client_socket.recv(1024).decode("utf-8").strip()
         if command.startswith("DELETE"):
-            _, email_id = command.split(":", 1)
-            soft_delete_email(email_id)
+            parts = command.split(":")
+            email_id = parts[1]
+            retention_minutes = int(parts[2]) if len(parts) > 2 else 1
+            soft_delete_email(email_id, retention_minutes)
             client_socket.send(b"+OK Email marked for deletion\n")
             return
         elif command.startswith("HARD_DELETE"):
             _, email_id = command.split(":", 1)
-            hard_delete_email(email_id)
-            client_socket.send(b"+OK Email permanently deleted\n")
+            email = primary_collection.find_one({"_id": ObjectId(email_id)})
+            now = datetime.utcnow()
+            if email and email.get("retention_until") and email["retention_until"] > now:
+                client_socket.send(b"-ERR Email is under retention, cannot hard delete\n")
+                logging.warning(f"Attempted to hard delete email {email_id} under retention.")
+            else:
+                hard_delete_email(email_id)
+                client_socket.send(b"+OK Email permanently deleted\n")
             return
         elif command.startswith("RETAIN"):
             _, email_id, days = command.split(":")

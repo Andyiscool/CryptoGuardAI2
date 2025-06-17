@@ -50,12 +50,14 @@ def hybrid_encrypt(message, recipient_public_key_path):
 
 def delete_email(email_id, port):
     try:
+        retention_minutes = input("Enter Retention Minutes (default 1):")
+        retention_minutes = int(retention_minutes) if retention_minutes.strip() else 1
         context = ssl.create_default_context()
         context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)  # Receive welcome message
-        command = f"DELETE:{email_id}\n"
+        command = f"DELETE:{email_id}:{retention_minutes}\n"
         client_socket.sendall(command.encode('utf-8'))
         response = client_socket.recv(1024).decode('utf-8')
         print(f"Server response: {response}")
