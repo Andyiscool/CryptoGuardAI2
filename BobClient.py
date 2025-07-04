@@ -20,6 +20,20 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 import os
 
+def show_privacy_notice():
+    print("""
+CryptoGuardAI Privacy Notice
+
+- We collect your email address, password, and email content to provide secure email services.
+- Your data is encrypted in transit and at rest.
+- Emails can be deleted immediately or retained for a period you specify.
+- After the retention period, emails are permanently deleted from all databases.
+- You have the right to access, correct, or delete your data at any time.
+- For questions or requests, contact: privacy@yourdomain.com
+
+By using this service, you agree to this policy.
+""")  
+    
 def hybrid_encrypt(message, recipient_public_key_path):
     """
     Encrypts the message using hybrid encryption (RSA + AES).
@@ -173,6 +187,7 @@ def send_email(recipient, sender, password, message_content, port):
     finally:
         client_socket.close()
 if __name__ == "__main__":
+    show_privacy_notice()
     print("1. Send email")
     print("2. Manage email retention/deletion")
     choice = input("Enter your choice: ")

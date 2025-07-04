@@ -13,11 +13,54 @@ References:
 import socket
 import ssl
 import base64
+import json
 from cryptography.hazmat.primitives.asymmetric import padding as rsa_padding
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
+
+def show_privacy_notice():
+    print("""
+CryptoGuardAI Privacy Notice
+
+- We collect your email address, password, and email content to provide secure email services.
+- Your data is encrypted in transit and at rest.
+- Emails can be deleted immediately or retained for a period you specify.
+- After the retention period, emails are permanently deleted from all databases.
+- You have the right to access, correct, or delete your data at any time.
+- For questions or requests, contact: privacy@yourdomain.com
+
+By using this service, you agree to this policy.
+""")  
+def export_user_data(user_email, port):
+    try:
+        context = ssl.create_default_context()
+        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
+        client_socket.connect(('localhost', port))
+        client_socket.recv(1024)  # Receive initial greeting
+        
+        # Send request for user data
+        command = f"EXPORT:{user_email}\n"
+        client_socket.sendall(command.encode("utf-8"))
+        
+        data = b""
+        while True:
+           chunk = client_socket.recv(4096)
+           if not chunk:
+               break
+           data += chunk
+        
+        with open(f"{user_email}_export.json", "wb") as f:
+            f.write(data)
+        print(f"User data exported to {user_email}_export.json")
+    except Exception as e:
+        print(f"Error exporting user data: {e}")
+    finally:
+        client_socket.close()
+
 
 def add_base64_padding(data):
     """
@@ -201,7 +244,8 @@ def manage_emails_menu(port):
         print("1. Delete an email")
         print("2. Retain an email")
         print("3. Hard delete an email")
-        print("4. Exit")
+        print("4. Export my data")
+        print("5. Exit")
         choice = input("Enter your choice: ")
         if choice == '1':
             email_id = input("Enter the email ID to delete: ")
@@ -214,11 +258,14 @@ def manage_emails_menu(port):
             email_id = input("Enter the email ID to hard delete: ")
             hard_delete_email(email_id, port)
         elif choice == '4':
+            export_user_data("alice@example.com", port)
+        elif choice == '5':
             print("Exiting the menu.")
             break
         else:
             print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
+    show_privacy_notice()
     receive_messages("alice@example.com", 2526)
     manage_emails_menu(2526)

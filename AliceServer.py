@@ -22,6 +22,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime, timedelta
 import time
+import json
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -196,7 +197,7 @@ def handle_admin_commands():
             enforce_retention_policy()
         elif command == "exit":
             break
-def run_retention_enforcement(interval=86400):  # Run every 24 hours
+def run_retention_enforcement(interval=60):  # Run every 24 hours
     while True:
         logging.info("Enforcing retention policy...")
         enforce_retention_policy()
@@ -339,6 +340,15 @@ def handle_pop3_client(client_socket):
             mark_email_for_retention(email_id, int(days))
             client_socket.send(b"+OK Email marked for retention\n")
             return
+        elif command.startswith("EXPORT"):
+            _, user_email = command.split(":", 1)
+            emails = list(primary_collection.find({"recipient": user_email}))
+            for email in emails:
+                email["_id"] = str(email["_id"])
+            data = json.dumps(emails).encode("utf-8 ")
+            client_socket.sendall(data)
+            client_socket.shutdown(socket.SHUT_WR)
+            return  
         else:
             recipient_address = command
 
