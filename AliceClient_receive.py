@@ -65,9 +65,18 @@ def export_user_data(user_email, port):
 
 def export_decrypted_emails():
     if decrypted_emails:
+        for email in decrypted_emails:
+            email.setdefault("from", "")
+            email.setdefault("to", "")
+            email.setdefault("timestamp", "")
+            email.setdefault("subject", "")
+            email.setdefault("message", "")
         with open("alice_decrypted_emails.json", "w") as f:
             json.dump(decrypted_emails, f, indent=2)
         print("Decrypted emails exported to alice_decrypted_emails.json")
+        with open("userdata.log", "a") as log_file:
+            from datetime import datetime
+            log_file.write(f"{datetime.now()} | User: {email['from']} | Action: export_decrypted_emails | Count: {len(decrypted_emails)}\n")
     else:
         print("No decrypted emails to export. Please receive messages first.")
 
@@ -221,6 +230,10 @@ def delete_email(email_id, port):
         client_socket.sendall(command.encode("utf-8"))
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
+        with open("userdata.log", "a") as log_file:
+            from datetime import datetime
+            log_file.write(f"{datetime.now()} | Action: soft delete email | Email ID: {email_id}\n")
+   
     except Exception as e:
         print(f"Error sending deletion request: {e}")
     finally:
@@ -237,8 +250,30 @@ def hard_delete_email(email_id, port):
         client_socket.sendall(command.encode("utf-8"))
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
+        with open("userdata.log", "a") as log_file:
+            from datetime import datetime
+            log_file.write(f"{datetime.now()} | Action: hard delete email | Email ID: {email_id}\n")
     except Exception as e:
         print(f"Error sending hard deletion request: {e}")
+    finally:
+        client_socket.close()
+def reverse_self_delete_email(email_id, port):
+    try:
+        context = ssl.create_default_context()
+        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
+        client_socket.connect(('localhost', port))
+        client_socket.recv(1024)  # Receive initial greeting
+        command = f"UNDELETE:{email_id}\n"
+        client_socket.sendall(command.encode("utf-8"))
+        response = client_socket.recv(1024).decode("utf-8")
+        print(f"Server response: {response}")
+        with open("userdata.log", "a") as log_file:
+            from datetime import datetime
+            log_file.write(f"{datetime.now()} | Action: reverse self delete email | Email ID: {email_id}\n")
+    except Exception as e:
+        print(f"Error sending reverse deletion request: {e}")
     finally:
         client_socket.close()
 
@@ -254,6 +289,9 @@ def retain_email(email_id, retention_days, port):
         client_socket.sendall(command.encode("utf-8"))
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
+        with open("userdata.log", "a") as log_file:
+            from datetime import datetime
+            log_file.write(f"{datetime.now()} | Action: retain email | Email ID: {email_id} | Retention Days: {retention_days}\n")
     except Exception as e:
         print(f"Error sending retention request: {e}")
     finally:
@@ -267,7 +305,8 @@ def manage_emails_menu(port):
         print("3. Hard delete an email")
         print("4. Export my data")
         print("5. Export decrypted emails")
-        print("6. Exit")
+        print("6. Reverse soft delete")
+        print("7. Exit")
         choice = input("Enter your choice: ")
         if choice == '1':
             email_id = input("Enter the email ID to delete: ")
@@ -284,6 +323,9 @@ def manage_emails_menu(port):
         elif choice == '5':
             export_decrypted_emails()
         elif choice == '6':
+            email_id = input("Enter the email ID to reverse soft delete: ")
+            reverse_self_delete_email(email_id, port)
+        elif choice == '7':
             print("Exiting the menu.")
             break
         else:

@@ -3,6 +3,7 @@
     "from": "",
     "to": "",
     "timestamp": "",
-    "message": "Hello Alice, this is Bob!"
+    "message": "Hello Alice, this is Bob!",
+    "subject": ""
   }
 ]

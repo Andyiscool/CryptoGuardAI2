@@ -349,6 +349,25 @@ def handle_pop3_client(client_socket):
                 hard_delete_email(email_id)
                 client_socket.send(b"+OK Email permanently deleted\n")
             return
+        elif command.startswith("UNDELETE"):
+            email_id = command.split(":", 1)[1].strip()
+            updated = False
+            for db in [primary_collection, backup_collection]:
+                result = db.update_one(
+                    {"_id": ObjectId(email_id)},
+                    {"$set": {
+                        "deleted": False,
+                        "deleted_at": None,
+                        "retention_until": None,
+                        "deletion_date": None
+                    }}
+                )
+                if result.modified_count > 0:
+                    updated = True
+            if updated:
+                client_socket.send(b"+OK Email restored from soft delete\n")
+            else:
+                client_socket.sendall(b"Email not found or not deleted\n")
         elif command.startswith("RETAIN"):
             _, email_id, days = command.split(":")
             mark_email_for_retention(email_id, int(days))
