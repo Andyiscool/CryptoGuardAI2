@@ -13,12 +13,14 @@ References:
 import socket
 import ssl
 import base64
+import json
 from cryptography.hazmat.primitives.asymmetric import padding as rsa_padding
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 
+decrypted_emails = []
 def show_privacy_notice():
     print("""
 CryptoGuardAI Privacy Notice
@@ -106,6 +108,8 @@ def receive_messages(recipient_email, port):
     Connects to the POP3 server, authenticates, and retrieves encrypted emails.
     Decrypts the emails using the recipient's private key.
     """
+    global decrypted_emails
+    decrypted_emails = []
     try:
         # Create SSL context
         context = ssl.create_default_context()
@@ -132,6 +136,10 @@ def receive_messages(recipient_email, port):
                     break
                 print(f"Email received: {msg_info}")
 
+                try:
+                    msg_info_dict = json.loads(msg_info)
+                except Exception:
+                    msg_info_dict = {"info": msg_info}
                 # Receive and parse the encrypted message components
                 raw_aes_key = client_socket.recv(4096).decode("utf-8").strip()
                 raw_iv = client_socket.recv(1024).decode("utf-8").strip()
@@ -170,6 +178,12 @@ def receive_messages(recipient_email, port):
                         encrypted_aes_key, iv, encrypted_message, "/Users/andyxiao/PostGradProjects/CryptoGuardAI/Bob_private_key.pem"
                     )
                     print(f"Decrypted message content: {decrypted_message}")
+                    decrypted_emails.append({
+                        "from": msg_info_dict.get("sender", ""),
+                        "to": msg_info_dict.get("recipient", ""),
+                        "timestamp": msg_info_dict.get("timestamp", ""),
+                        "message": decrypted_message
+                    })
                 except Exception as decryption_error:
                     print(f"Error decrypting message: {decryption_error}")
                     continue  # Skip to the next message
@@ -183,9 +197,15 @@ def receive_messages(recipient_email, port):
         print(f"An error occurred: {e}")
     finally:
         client_socket.close()
-
+        
 import ssl
-
+def export_decrypted_emails():
+    if decrypted_emails:
+        with open("bob_decrypted_emails.json", "w") as f:
+            json.dump(decrypted_emails, f, indent=2)
+        print("Decrypted emails exported to bob_decrypted_emails.json")
+    else:
+        print("No decrypted emails to export. Please receive messages first.")
 def delete_email(email_id, port):
     try:
         context = ssl.create_default_context()
@@ -242,7 +262,9 @@ def manage_emails_menu(port):
         print("1. Delete an email")
         print("2. Retain an email")
         print("3. Hard delete an email")
-        print("4. Exit")
+        print("4. Export my data")
+        print("5. Export decrypted emails")
+        print("6. Exit")
         choice = input("Enter your choice: ")
         if choice == '1':
             email_id = input("Enter the email ID to delete: ")
@@ -258,6 +280,8 @@ def manage_emails_menu(port):
             print("Export my data")
             export_user_data("bob@example.com", port)
         elif choice == '5':
+            export_decrypted_emails()
+        elif choice == '6':
             print("Exiting the menu.")
             break
         else:

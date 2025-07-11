@@ -19,7 +19,9 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 import os
-
+import logging
+from datetime import datetime
+logging.basicConfig(filename='audit.log', level=logging.INFO)
 def show_privacy_notice():
     print("""
 CryptoGuardAI Privacy Notice
@@ -33,7 +35,11 @@ CryptoGuardAI Privacy Notice
 
 By using this service, you agree to this policy.
 """)  
-    
+def log_user_action(user, action, details=""):
+    """
+    Logs user actions to the audit log.
+    """
+    logging.info(f"{datetime.utcnow()} | User: {user} | Action: {action} | Details: {details}")
 def hybrid_encrypt(message, recipient_public_key_path):
     """
     Encrypts the message using hybrid encryption (RSA + AES).
@@ -63,6 +69,7 @@ def hybrid_encrypt(message, recipient_public_key_path):
     return encrypted_aes_key, iv, encrypted_message
 
 def delete_email(email_id, port):
+    log_user_action("alice@example.com", "delete_email", f"Email ID: {email_id}")
     try:
         retention_minutes = input("Enter Retention Minutes (default 1):")
         retention_minutes = int(retention_minutes) if retention_minutes.strip() else 1
@@ -80,6 +87,8 @@ def delete_email(email_id, port):
     finally:
         client_socket.close()
 def hard_delete_email(email_id, port):
+    log_user_action("alice@example.com", "hard_delete_email", f"Email ID: {email_id}")
+
     try:
         context = ssl.create_default_context()
         context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
@@ -97,6 +106,8 @@ def hard_delete_email(email_id, port):
         client_socket.close()
 
 def retain_email(email_id, retention_days, port):
+    log_user_action("alice@example.com", "retain_email", f"Email ID: {email_id}, Retention Days: {retention_days}")
+
     try:
         context = ssl.create_default_context()
         context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
@@ -137,6 +148,8 @@ def interactive_menu(port):
             print("Invalid choice. Please try again.")
 
 def send_email(recipient, sender, password, message_content, port):
+    log_user_action("alice@example.com", "send_email", f"To: {recipient}")
+
     """
     Sends an encrypted email using hybrid encryption.
     """

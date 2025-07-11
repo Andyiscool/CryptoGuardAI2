@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  mongo_backup:
+    image: mongo:6
+    container_name: mongo_backup
+    restart: always
+    ports:
+      - "27018:27017"
+    command: --replSet rs0
+    volumes:
+      - /Users/andyxiao/mongo_backup_data:/data/db
+    networks:
+      - mongo_net
+
+networks:
+  mongo_net:
+    external: true

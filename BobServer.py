@@ -23,13 +23,14 @@ from bson.objectid import ObjectId
 from datetime import datetime, timedelta
 import time
 import json
+logging.basicConfig(filename='audit.log', level=logging.INFO)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Message storage
 try:
-    primary_client = MongoClient("mongodb://localhost:27017/")
+    primary_client = MongoClient("mongodb://localhost:27017,localhost:27018/?replicaSet=rs0")
     primary_db = primary_client["email_db"]
     primary_collection = primary_db["messages"]
     logging.info("Connected to primary MongoDB.")
@@ -37,7 +38,7 @@ except Exception as e:
     logging.error(f"Error connecting to primary MongoDB: {e}")
     exit(1)
 try:
-    backup_client = MongoClient("mongodb://localhost:27018/")
+    backup_client = MongoClient("mongodb://localhost:27018/?replicaSet=rs0")
     backup_db = backup_client["email_db_backup"]
     backup_collection = backup_db["messages"]
     logging.info("Connected to backup MongoDB.")
@@ -48,6 +49,12 @@ databases = [
     {"name": "primary", "client": primary_client, "collection": primary_collection},
     {"name": "backup", "client": backup_client, "collection": backup_collection},
 ]
+def log_user_action(user, action, details=""):
+    """
+    Logs user actions to the audit log.
+    """
+    logging.info(f"{datetime.utcnow()} | User: {user} | Action: {action} | Details: {details}")
+
 def is_database_healthy(client):
     try:
         client.admin.command('ping')
@@ -182,7 +189,13 @@ def enforce_retention_policy():
 def handle_admin_commands():
     while True:
         command = input("Enter admin command: ")
-        if command == "check_consistency":
+        if command == "status":
+            try:
+                status = primary_client.admin.command("replSetGetStatus")
+                print(json.dumps(status, indent=2, default=str))
+            except Exception as e:
+                print(f"Error fetching replica set status: {e}")
+        elif command == "check_consistency":
             check_database_consistency()
         elif command == "synchronize_all":
             synchronize_databases()
@@ -206,14 +219,17 @@ def run_retention_enforcement(interval=60):  # Run every 24 hours
 def synchronize_databases():
     try:
         now = datetime.utcnow()
+        # Only synchronize if primary is healthy
+        if not is_database_healthy(primary_client):
+            logging.warning("Primary database is unavailable. Synchronization skipped.")
+            return
         primary_ids = set(doc["_id"] for doc in primary_collection.find({},{"_id": 1}))
         backup_ids = set(doc["_id"] for doc in backup_collection.find({},{"_id": 1}))
         all_ids = primary_ids.union(backup_ids)
-
         for _id in all_ids:
             primary_doc = primary_collection.find_one({"_id": _id})
             backup_doc = backup_collection.find_one({"_id": _id})
-
+            
             if primary_doc and not backup_doc:
                 if not primary_doc.get("deleted") or (primary_doc.get("retention_until") and primary_doc["retention_until"] > now):
                     backup_collection.insert_one(primary_doc)
@@ -350,6 +366,7 @@ def handle_pop3_client(client_socket):
             data = json.dumps(emails).encode("utf-8 ")
             client_socket.sendall(data)
             client_socket.shutdown(socket.SHUT_WR)
+            log_user_action(user_email, "EXPORT", f"User exported their data")
             return  
         else:
             recipient_address = command
