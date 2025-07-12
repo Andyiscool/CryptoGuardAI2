@@ -21,6 +21,7 @@ import logging
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime, timedelta
+from hmac_utils import verify_hmac
 import time
 import json
 logging.basicConfig(filename='audit.log', level=logging.INFO)
@@ -297,6 +298,15 @@ def handle_smtp_client(client_socket):
 
         # Parse email data
         lines = email_data.split(b'\n')
+        received_hmac = lines[-1].decode().strip()
+        message_hmac = b'\n'.join(lines[:-1])
+        if not verify_hmac(message_hmac, received_hmac):
+            client_socket.send(b"550 HMAC verification failed\n")
+            logging.warning("HMAC verification failed for incoming email.")
+            return
+        
+        logging.info("HMAC verification succeeded.")
+
         recipients = []
         sender = None
         encrypted_aes_key = None
@@ -334,7 +344,18 @@ def handle_pop3_client(client_socket):
     """
     try:
         client_socket.send(b"+OK POP3 server ready\n")
-        command = client_socket.recv(1024).decode("utf-8").strip()
+        data = client_socket.recv(1024)
+        if b'\n' not in data:
+            client_socket.send(b"-ERR Invalid command format\n")
+            logging.error("Invalid command format received from client.")
+            return
+        command_bytes, received_hmac = data.rsplit(b'\n', 1)
+        received_hmac = received_hmac.decode().strip()
+        if not verify_hmac(command_bytes, received_hmac):
+            client_socket.send(b"-ERR Invalid HMAC\n")
+            logging.error("Invalid HMAC received from client.")
+            return
+        command = command_bytes.decode("utf-8").strip()
         if command.startswith("DELETE"):
             parts = command.split(":")
             email_id = parts[1]

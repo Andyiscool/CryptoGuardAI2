@@ -21,6 +21,7 @@ from cryptography.hazmat.primitives import padding
 import os
 import logging
 from datetime import datetime
+from hmac_utils import generate_hmac
 logging.basicConfig(filename='audit.log', level=logging.INFO)
 def show_privacy_notice():
     print("""
@@ -78,8 +79,13 @@ def delete_email(email_id, port):
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)  # Receive welcome message
-        command = f"DELETE:{email_id}:{retention_minutes}\n"
-        client_socket.sendall(command.encode('utf-8'))
+
+        command = f"DELETE:{email_id}:{retention_minutes}"
+        command_bytes = command.encode('utf-8')
+        hmac = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac.encode('utf-8')
+        client_socket.sendall(message)
+
         response = client_socket.recv(1024).decode('utf-8')
         print(f"Server response: {response}")
     except Exception as e:
@@ -96,8 +102,13 @@ def hard_delete_email(email_id, port):
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)
-        command = f"HARD_DELETE:{email_id}\n"
-        client_socket.sendall(command.encode("utf-8"))
+
+        command = f"HARD_DELETE:{email_id}"
+        command_bytes = command.encode('utf-8')
+        hmac = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac.encode('utf-8')
+        client_socket.sendall(message)
+
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
     except Exception as e:
@@ -114,8 +125,13 @@ def retain_email(email_id, retention_days, port):
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)  # Receive welcome message
-        command = f"RETAIN:{email_id}:{retention_days}\n"
-        client_socket.sendall(command.encode('utf-8'))
+
+        command = f"RETAIN:{email_id}:{retention_days}"
+        command_bytes = command.encode('utf-8')
+        hmac = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac.encode('utf-8')
+        client_socket.sendall(message)
+
         response = client_socket.recv(1024).decode('utf-8')
         print(f"Server response: {response}")
     except Exception as e:
@@ -187,9 +203,11 @@ def send_email(recipient, sender, password, message_content, port):
 
         # Debug email data
         print(f"Constructed email data:\n{email_data.decode('utf-8')}")
-
-        # Send email
-        client_socket.sendall(email_data)
+        # Generate HMAC for the email data
+        hmac = generate_hmac(email_data)
+        message = email_data + b'\n' + hmac.encode()
+        client_socket.sendall(message)
+        
         print(client_socket.recv(1024).decode("utf-8"))
     except ssl.SSLError as e:
         print(f"SSL error: {e}")

@@ -19,6 +19,7 @@ from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
+from hmac_utils import generate_hmac
 
 decrypted_emails = []
 
@@ -45,9 +46,12 @@ def export_user_data(user_email, port):
         client_socket.recv(1024)  # Receive initial greeting
         
         # Send request for user data
-        command = f"EXPORT:{user_email}\n"
-        client_socket.sendall(command.encode("utf-8"))
-        
+        command = f"EXPORT:{user_email}"
+        command_bytes = command.encode('utf-8')
+        hmac_value = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac_value.encode()
+        client_socket.sendall(message)
+
         data = b""
         while True:
            chunk = client_socket.recv(4096)
@@ -139,8 +143,10 @@ def receive_messages(recipient_email, port):
         client_socket.connect(('localhost', port))
 
         # Send recipient email
-        client_socket.send(recipient_email.encode("utf-8"))
-
+        command_bytes = recipient_email.encode("utf-8")
+        hmac_value = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac_value.encode()
+        client_socket.sendall(message)
         # Receive server response
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
@@ -226,8 +232,13 @@ def delete_email(email_id, port):
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)  # Receive initial greeting
-        command = f"DELETE:{email_id}\n"
-        client_socket.sendall(command.encode("utf-8"))
+
+        command = f"DELETE:{email_id}"
+        command_bytes = command.encode('utf-8')
+        hmac = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac.encode()
+        client_socket.sendall(message)
+
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
         with open("userdata.log", "a") as log_file:
@@ -246,8 +257,13 @@ def hard_delete_email(email_id, port):
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)
-        command = f"HARD_DELETE:{email_id}\n"
-        client_socket.sendall(command.encode("utf-8"))
+
+        command = f"HARD_DELETE:{email_id}"
+        command_bytes = command.encode('utf-8')
+        hmac = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac.encode()
+        client_socket.sendall(message)
+
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
         with open("userdata.log", "a") as log_file:
@@ -265,8 +281,13 @@ def reverse_self_delete_email(email_id, port):
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)  # Receive initial greeting
-        command = f"UNDELETE:{email_id}\n"
-        client_socket.sendall(command.encode("utf-8"))
+
+        command = f"UNDELETE:{email_id}"
+        command_bytes = command.encode("utf-8")
+        hmac = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac.encode()
+        client_socket.sendall(message)
+
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
         with open("userdata.log", "a") as log_file:
@@ -285,8 +306,13 @@ def retain_email(email_id, retention_days, port):
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)  # Receive initial greeting
-        command = f"RETAIN:{email_id}:{retention_days}\n"
-        client_socket.sendall(command.encode("utf-8"))
+
+        command = f"RETAIN:{email_id}:{retention_days}"
+        command_bytes = command.encode('utf-8')
+        hmac = generate_hmac(command_bytes)
+        message = command_bytes + b'\n' + hmac.encode()
+        client_socket.sendall(message)
+
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
         with open("userdata.log", "a") as log_file:
