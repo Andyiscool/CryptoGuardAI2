@@ -31,7 +31,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 # Message storage
 try:
-    primary_client = MongoClient("mongodb://localhost:27017,localhost:27018/?replicaSet=rs0")
+    primary_client = MongoClient("mongodb://mongo_primary:27017,mongo_backup:27017/?replicaSet=rs0")
     primary_db = primary_client["email_db"]
     primary_collection = primary_db["messages"]
     logging.info("Connected to primary MongoDB.")
@@ -39,7 +39,7 @@ except Exception as e:
     logging.error(f"Error connecting to primary MongoDB: {e}")
     exit(1)
 try:
-    backup_client = MongoClient("mongodb://localhost:27018/?replicaSet=rs0")
+    backup_client = MongoClient("mongodb://mongo_backup:27017/?replicaSet=rs0")
     backup_db = backup_client["email_db_backup"]
     backup_collection = backup_db["messages"]
     logging.info("Connected to backup MongoDB.")

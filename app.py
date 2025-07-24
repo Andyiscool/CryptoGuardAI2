@@ -60,8 +60,11 @@ def register():
         confirm_password = request.form['confirm_password']
         if password != confirm_password:
             flash('Passwords do not match.')
-            return redirect(request.url)
+            return render_template('register.html')
         response = register_user(email, password)
+        if response != "User registered successfully.":
+            flash(response)
+            return render_template('register.html')
         flash(response)
         return redirect(url_for('upload_file'))
     return render_template('register.html')

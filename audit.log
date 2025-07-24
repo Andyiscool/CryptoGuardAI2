@@ -1780,3 +1780,814 @@ INFO:root:Running periodic database synchronization...
 ERROR:root:Error handling POP3 client: '7' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
 INFO:root:Running periodic database synchronization...
 INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.0031315526089165362>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:2025-07-23 23:10:41.500608 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.008414195359566251>]>
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.008414195359566251>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Raw email data received:
+From: bob@example.com
+To: alice@example.com
+Encrypted-AES-Key: k+RJe03Q7yPTOP57xTy4HZ7QpVma+jyicAHRFsO5GqeAhiXt3zIAzJqKllZTby++6BdkKUv49r2XByTfsxdLxt27f9lN6/Xih5pvcDHKPP0mAxesLyYQiwJnaPH1FuuJhCJjXcNsEEGxaMyxabcOrO4T3F00f3BYp+Tp1jKsRliQ9rCQxPRtAtwWCJnbpVzwajmiXjeMx5acDbOG1Ofq5NGR5ppBC4y5H+6eDnLhyAuZG6zB+psPY/isEUyimJoH34arvHrImY0vXnde5WVW7eEghA+Fq9gBSCvRGWyniSnBRa8nGaZDWA3VrVglYgFu2weycOUe6QloJiIs9nSwZg==
+IV: z0F4Kdcl72zroT/C6i2ZoA==
+Message: Caz0m9uPCZOFQKIgTwxtQsg6wLC16AfHWEQQeXiEiTU=
+
+0fdd2758418fdf48ab67924351aa4f15a37376b940a5da924e174337c4adfd98
+INFO:root:HMAC verification succeeded.
+INFO:root:Received POP3 request for: alice@example.com
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.012768295520321446>]>
+WARNING:root:primary database is not available. Skipping write.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.012763294615050578>]>
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.014622655194822535>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9086, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01339179974378421>]>
+WARNING:root:backup database is not available. Skipping write.
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9086, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01578464819695975>]>
+WARNING:root:No messages found for recipient: alice@example.com
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019983814618860608>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019983814618860608>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018915516590120855>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01970394087244412>]>
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816bbe3aa34d07c51d9085, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01970394087244412>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:2025-07-23 23:20:46.569643 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:2025-07-23 23:20:49.968306 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:2025-07-23 23:20:53.344782 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.0017708434079540894>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:Raw email data received:
+From: bob@example.com
+To: alice@example.com
+Encrypted-AES-Key: IvrDq6UlQCZf3GIr2Y5AgwVf/L1owhYl7DkVK3tHDeVttfNpINdadl74dq6P4oMS7zssF1s1MLb9lhFcZwCglbYsoAukDaYc+CbBNdiic68wf2AD+MWd1NrCMPY/dIXKyRdyX5hx2ldxnqkjk03p3cbDX9sWVY7EjbD1bcjRy0PD1QliWqPAhmB83nSSVCcea0sjcaPpAbqynCLSg1mEC4DZhpSZqCukqgmnfQM6jDufd5t1/wukb7/9JYnA/4JbC9dd9a6n9MSpilX5AeTxK2+fOlROKDDOPRT54d+I/5lq2AsSSe7uiZW8s+cN47//D5SGdkz5ts78+J/e5belRA==
+IV: KnlN3WRfbcYFaWiSjUdZHw==
+Message: OfGbRzj+BfmDqPZ7wlw3hStizHh3fEpe5DqwhCV5P38=
+
+e8b9e45c6396f1c10522a629cf23d18fcb33061a58e11a086ef32d072a88ac0a
+INFO:root:HMAC verification succeeded.
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.008477569823742846>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.008477569823742846>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.008477569823742846>]>
+WARNING:root:primary database is not available. Skipping write.
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b9, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.013089027403208744>]>
+WARNING:root:backup database is not available. Skipping write.
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.024642621699242834>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.024642621699242834>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.022258297189349623>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.021145470687157365>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.016525363641362156>]>
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.016525363641362156>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.02027004520784648>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Received POP3 request for: alice@example.com
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01979548510633055>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01840937148654271>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.02064100435149254>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b9, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.021077601233798253>]>
+WARNING:root:No messages found for recipient: alice@example.com
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.014915486097552735>]>
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68816e3f6ff31e7420db54b8, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.014915486097552735>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.002338398145162501>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:2025-07-23 23:41:30.688812 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: alice@example.com
+To: bob@example.com
+Encrypted-AES-Key: FouLiKoYKxPG0GUww1wisB+jKPzjBZMtdQwicv7/GhjNlQDc5MLVAZM0noZWid8J2TvoqqRMPgcq3q3APvbbsDAcoGzJ+0+XZNzh9WkfpDiySL8NkY/XWcqCnwXUgK9jk5TCCgcitdxcSZJEkUumy48XKzS64fI00KyFIsatJ/EVOVFh4kGtsOEy59fvdkOCXvRE4QDYtaiEb6ELs1TlGMObd5WjtIJo8TuCGtAp/PJ/7BQ2BJffip2Cfa1ZhLovw2Ibr6iFRFIa1KOALxsAHYlsvAeUpI7m+r4vdIP6GCYnqZbKj2eegRA2Um+vd/OYgnbFjzJdj91QuxCCFJlGqg==
+IV: D7exWDF/Lx3sjp41IGYrdg==
+Message: ShiEmqNhYnGUWGZZkJkw6r7/Ppsa3qX08VGH0dNOx7Y=
+
+88642e7606c39d5eb2f3793fc5c90b8f57a570fbdfb0521c2a6ce45dd03fbebb
+INFO:root:HMAC verification succeeded.
+INFO:root:Received POP3 request for: bob@example.com
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.012116668904538268>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.012116668904538268>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.012116668904538268>]>
+WARNING:root:primary database is not available. Skipping write.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01720622672470324>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.013648568646397094>]>
+WARNING:root:backup database is not available. Skipping write.
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01344508831768511>]>
+WARNING:root:No messages found for recipient: bob@example.com
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.024650347689760516>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.024650347689760516>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.022455044739699434>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.021459750409834007>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018199163526954616>]>
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018199163526954616>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 6881730adcf770b1e511b39e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018133821459444217>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:2025-07-23 23:49:06.305658 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.0023473223205655817>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:2025-07-23 23:49:22.620045 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011869299651635811>]>
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011869299651635811>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:2025-07-23 23:49:40.005363 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: bob@example.com
+To: alice@example.com
+Encrypted-AES-Key: g731vHLNIjnZksU16HZoBwy9YMi/6Pn126YKREqlmjPyWO8AdXnhJ8+1TnkWElsCu73gJcyLnlwyjuyTBxv4n/iQbzZ2xvoRJ7Iiuhq9IZHwUEegZbjbH1y0bYVCTnyHwrIpk9cABI1gt3pXLMK/3QxjJkUpHT+ZFwVtC8g/lz7nFOeVH3Vj6RzpAUwWaNj4UY/Y3GDbaI/vGZ+ZP3Pyl/DnNJhuglwWEfy9nwsEK17U+Gp+mXYpW+AMhpgETqUa2Mab5DQu5MqtS0BDOpORlCk/la/l3vTDN34xkgNNX15XL6zNAlFOOnquj+C8TvkFNklki44yem017Az1PGthqg==
+IV: sV8UnpkfTCOKAOcAbjgDeg==
+Message: VFpyVXbMdbF3aCkZKQkZIZD58r9hzJPhgisQI12C7OI=
+
+48c5fd25f6f5602cd9281c821fc53c889716879555a1ee5c2f7a6a969e0fa8e0
+INFO:root:HMAC verification succeeded.
+INFO:root:Received POP3 request for: alice@example.com
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.013203899325701039>]>
+WARNING:root:primary database is not available. Skipping write.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.014291435568355944>]>
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.017761948455167927>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268b, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01787648395441934>]>
+WARNING:root:backup database is not available. Skipping write.
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268b, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019242079849142557>]>
+WARNING:root:No messages found for recipient: alice@example.com
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: Could not reach any servers in [('mongo_primary', 27017)]. Replica set is configured with internal hostnames or IPs?, Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=NotPrimaryError("The server is in quiesce mode and will shut down, full error: {'topologyVersion': {'processId': ObjectId('68816ab06f7badfdb2db1cb4'), 'counter': 7}, 'ok': 0.0, 'errmsg': 'The server is in quiesce mode and will shut down', 'code': 91, 'codeName': 'ShutdownInProgress', 'remainingQuiesceTimeMillis': 11559, '$clusterTime': {'clusterTime': Timestamp(1753314658, 1), 'signature': {'hash': b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'keyId': 0}}, 'operationTime': Timestamp(1753314658, 1)}")>]>
+ERROR:root:Database health check failed: Could not reach any servers in [('mongo_primary', 27017)]. Replica set is configured with internal hostnames or IPs?, Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=NotPrimaryError("The server is in quiesce mode and will shut down, full error: {'topologyVersion': {'processId': ObjectId('68816ab06f7badfdb2db1cb4'), 'counter': 7}, 'ok': 0.0, 'errmsg': 'The server is in quiesce mode and will shut down', 'code': 91, 'codeName': 'ShutdownInProgress', 'remainingQuiesceTimeMillis': 6466, '$clusterTime': {'clusterTime': Timestamp(1753314658, 1), 'signature': {'hash': b'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'keyId': 0}}, 'operationTime': Timestamp(1753314658, 1)}")>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+INFO:root:2025-07-23 23:51:32.340223 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: bob@example.com
+To: alice@example.com
+Encrypted-AES-Key: SZeyN7L06qNhv2BYySapYL9bJk0cGjc3XYjz4OfVfo7TO1aFBItPm4DUqu2RspSxg/pEZeAKTOkcBaRJTOWMkIjyYpevaEZ4q8ao6iErCwy5uDGS2KxCS27cBddSP9eGrxhD2rGfiUx+Vem2MztSgSABRP+atPoY6DXjOOH9KwypN3TXuTz7MkGaDwCA6sTJpiQyN8lrYOh8pwFjMiNOXTzdmmHGno22Va1ngGkaHsi4/hdKlZPeEbDFFeCsYqDtcNfbSyPP52rid2loANRF0O/03jFCuuRhcxr5oQSHL9o6HPO3xZVJTL4thZvWhA3YDgJdnFbMRlp/38o8n/lSiw==
+IV: IBV9yRiXxJYk8cXTxGVp/w==
+Message: KMOOzPxzCeI4/NKHMIE1nceCYq6cIYs33Ga5CEncCug=
+
+265358fce55938565e01bf607e9fd344883446ef4dc9132f48221133dfcc3507
+INFO:root:HMAC verification succeeded.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018812991399317983>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Received POP3 request for: alice@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.0223082410666626>]>
+WARNING:root:primary database is not available. Skipping write.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.0223082410666626>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268b, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.02237233657916729>]>
+WARNING:root:backup database is not available. Skipping write.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.020361082560863348>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.020361082560863348>]>
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268b, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.02237233657916729>]>
+WARNING:root:No messages found for recipient: alice@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01740920477629471>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019343434063889792>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01984933177014589>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688174d7d3a5daacea08268a, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019492217554295893>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.0018871328410459685>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:2025-07-23 23:58:10.173653 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: alice@example.com
+To: bob@example.com
+Encrypted-AES-Key: d8MY+LPKwrBfP2YVeH32aEEMph10aV07xwX73hCVrg6Fldpn8pmNIZdWDHy0V24USN/h5YH9Nwn0H2Fc+nTIC2N6MV68A72IzAvo6/9QDaTaXzGF13HN7uucn2rsYZP+ut6iTHOyW/IIphi40KPnrjEY5DVCs49ykiwKHLyV2FYj9KFbPhhkF4HaXZVdUEwfD/QyPsZR4imkt2ZO7hdBTf1g13K1Wg/L/DxPvht8m6q91L+sgAGZOzgtZ+9QUOFBS81QuIlNI3dIZ7BRasuFreC5WxouOT8m0e6Y/KL3cTntogfod1JNBZCcsWnDaOJiWBy5vOCPA3k0FrhNLTztRg==
+IV: qbtLXA5QsvZimnu3gm+dIA==
+Message: utbMGmPd3c/oWqI2nuJzuJv+GasakhbKqTkiL3mBy3E=
+
+6981c418af73c110afaa307a73e2a8e11ef89332c0c36e5b1d3a236f838a343d
+INFO:root:HMAC verification succeeded.
+INFO:root:Received POP3 request for: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.008810098151158543>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.008810098151158543>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.013229128519776465>]>
+WARNING:root:primary database is not available. Skipping write.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.015576494415899889>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44337, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01687435903852033>]>
+WARNING:root:backup database is not available. Skipping write.
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44337, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01730569563087203>]>
+WARNING:root:No messages found for recipient: bob@example.com
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018899012857031026>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.02014124348482709>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01850304095332685>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01964144006320201>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018485760180118056>]>
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018485760180118056>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688176e12d80bead95f44336, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.02254888211258827>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:2025-07-24 00:03:06.038403 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.001906987191643566>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:2025-07-24 00:03:20.824464 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: bob@example.com
+To: alice@example.com
+Encrypted-AES-Key: Y9WV5dQ00pyIXw/Q8vP+IsclobXC+wAGyKQgKKhPJJSabmxh9nAsbkgD8v/Hs+3TvxsgC4ptCZhnPOuxGzoRERMnGdh0McCGCSq+rVtmmhce807U8SXcrVUB+5THGSsJnrnHXmhAbHrlDjIH0a7X6m4n4jnmCUhTULl0xOsZqJ9IKkBPt+1Yjvd8Ug1Q+Akl+EchR21+SAPLeA/3QosBuTjcTOb7a3Lo0HxfeUM9kqeJA9sAGirM63GRVECmctlG14WGJGcPNz0KhUGbkNlge5SwZEcbGdWN5hQxJCuOEfOkfsotmYh6//TgvtW8CGUjkLcY7Urk3Fd23dY32uWE6g==
+IV: MHkl4JnCFLPpf2TAD/gaLQ==
+Message: HkmQZKsER/R1gyyrNBzo1GgrLR04Gwxi0IOfoSi8Ars=
+
+c1bc973928254e1c81bcf618f3cdf26707a79ad46d16c5f33889b61c565264db
+INFO:root:HMAC verification succeeded.
+INFO:root:Received POP3 request for: alice@example.com
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011475008871514352>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011475008871514352>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011475008871514352>]>
+WARNING:root:primary database is not available. Skipping write.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.015556707095720622>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.00993963005183752>]>
+WARNING:root:backup database is not available. Skipping write.
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29e, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011612887239452627>]>
+WARNING:root:No messages found for recipient: alice@example.com
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.022985305603717525>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.022985305603717525>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.02274435661885528>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019745383789863166>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019828876632543936>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019828876632543936>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018953749997308478>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 68817825a61298012f23d29d, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('mongo_primary:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.001838416471996425>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:Raw email data received:
+From: bob@example.com
+To: alice@example.com
+Encrypted-AES-Key: lgM0qi10CMwMZs4fnJ6bVouy+yJB/qpk0+gouUWVuhTGg04TO5I9FjwKI8cC76882nTIqAt283PCs3YunKExBDgxVWoWJSUv86a0DITAnlNhJbHQeUWqv47Bs2BRT+EGtJ/ttFTBKcSsKLts7blbf6bF+aj+LVNwgMtVqj3KgtstXKGMNuf8xqB+wiyPNxN2gaL5DhttSVtQ2o27cLg08vvp7V05HdaEx8PxtBPihFieeSfvhK/OJKJgzWFjueGGrq4C/SqdZP5Bp7lNoNB3yge6SdyM92cXGiOty0mJ2G1NA1M32vAGACg3eOjrrA4+fxQZhpszK6670QiQ0K52Tg==
+IV: nZzJyymnoxZXbJaQUfh78Q==
+Message: UNkfvQmVuUl+LLnCdQb1CVGJJYi1Knn11LL/0VqcVIw=
+
+1e419ec21db1cdbbb6375269b903a11f09af61de2ac7b62a20dc4e49cc60ff85
+INFO:root:HMAC verification succeeded.
+INFO:root:2025-07-24 00:48:48.999654 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011027689577652256>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011027689577652256>]>
+INFO:root:Received POP3 request for: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.011027689577652256>]>
+WARNING:root:primary database is not available. Skipping write.
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.013157473583752133>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba4, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.017738782889970994>]>
+WARNING:root:backup database is not available. Skipping write.
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01699156821090165>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba4, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019366911439670672>]>
+WARNING:root:No messages found for recipient: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01699156821090165>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.016948104795998124>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.02016540243155001>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.020058519771184048>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688182c681139bc006285ba3, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.020058519771184048>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Running periodic database synchronization...
+INFO:root:2025-07-24 04:50:45.588041 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: alice@example.com
+To: bob@example.com
+Encrypted-AES-Key: H5MVV/fhIXlwedA3rmdUQrfWjqxNX/BhhXICwYLkrDfIapyFDFIcYkdTCb2dCj2zYDgTYtCHRvdVciqqCVWyG8x/Um4Qi0Dq598g0Br77EpW/5xNSqGHP6O+T6cwR1uGUSdm4jDMyz4ayu7c2WMced+P95pFwfV6XohovbtyB1kjyeBG4Vvy6v0Dyq/T67susxG0wohxMuEjZaHdblG4Xr/YIohcAdts++0CdA36B1035kUZR1sXe19A6cl3r/xeVfMvGh+kAwBz7XEN7RGfFaPuh/Dao8Uk0XCkr+t1vnjt3TfYUeUn3gg3eTbHljvW+GvxqUdf6T7m3JV29/d9og==
+IV: zphY9357O68FwOOGnEJlOA==
+Message: 0ezL5M1ho6LCGatORNhJt+7CDbCRHVtFNZgChuocX+4=
+
+3823e2b182d1f33baa0ccf81705a470540d24eb0a1a3a3e0b9ccba2334083ea8
+INFO:root:HMAC verification succeeded.
+INFO:root:Message stored in primary database.
+INFO:root:Message stored in backup database.
+INFO:root:Message stored for recipients: ['bob@example.com']
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Received POP3 request for: alice@example.com
+INFO:root:Retrieved 7 messages from primary database for recipient: alice@example.com
+INFO:root:Sent message to alice@example.com
+INFO:root:Sent message to alice@example.com
+INFO:root:Sent message to alice@example.com
+INFO:root:Sent message to alice@example.com
+INFO:root:Sent message to alice@example.com
+INFO:root:Sent message to alice@example.com
+INFO:root:Sent message to alice@example.com
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Synchronized document with ID 68716bbcad3202e6f887da69 to primary database.
+INFO:root:Synchronized document with ID 68716bc659ffdfaf94f8c35a to primary database.
+INFO:root:Synchronized document with ID 68716e55ba5b2666d171e06e to primary database.
+INFO:root:Synchronized document with ID 6872c615458828f36d549790 to primary database.
+INFO:root:Synchronized document with ID 6872c8947bb22cb9990fe425 to primary database.
+INFO:root:Synchronized document with ID 6872c9ea259189103f9fbc3a to primary database.
+INFO:root:Synchronized document with ID 68716239ad3202e6f887da68 to primary database.
+INFO:root:Synchronized document with ID 6881bba53b8cede656038155 to primary database.
+INFO:root:Synchronized document with ID 6872c62db3d6d3547f628ae0 to primary database.
+INFO:root:Synchronized document with ID 687171ee60f4eafdbae726ac to primary database.
+INFO:root:Synchronized document with ID 6872c7a8b3d6d3547f628ae1 to primary database.
+INFO:root:Synchronized document with ID 6872c890365a7c5da44249e3 to primary database.
+INFO:root:Synchronized document with ID 6881bb978388d8e29c59c1ba to primary database.
+INFO:root:Synchronized document with ID 6872c7a4458828f36d549791 to primary database.
+INFO:root:Synchronized document with ID 687171f2583a424aef789c07 to primary database.
+INFO:root:Running periodic database synchronization...
+INFO:root:Synchronized document with ID 68716bbcad3202e6f887da69 to primary database.
+INFO:root:Synchronized document with ID 68716bc659ffdfaf94f8c35a to primary database.
+INFO:root:Synchronized document with ID 68716e55ba5b2666d171e06e to primary database.
+INFO:root:Synchronized document with ID 6872c615458828f36d549790 to primary database.
+INFO:root:Synchronized document with ID 6872c8947bb22cb9990fe425 to primary database.
+INFO:root:Synchronized document with ID 6872c9ea259189103f9fbc3a to primary database.
+INFO:root:Synchronized document with ID 68716239ad3202e6f887da68 to primary database.
+INFO:root:Synchronized document with ID 6881bba53b8cede656038155 to primary database.
+INFO:root:Synchronized document with ID 6872c62db3d6d3547f628ae0 to primary database.
+INFO:root:Synchronized document with ID 687171ee60f4eafdbae726ac to primary database.
+INFO:root:Synchronized document with ID 6872c7a8b3d6d3547f628ae1 to primary database.
+INFO:root:Synchronized document with ID 6872c890365a7c5da44249e3 to primary database.
+INFO:root:Synchronized document with ID 6881bb978388d8e29c59c1ba to primary database.
+INFO:root:Synchronized document with ID 6872c7a4458828f36d549791 to primary database.
+INFO:root:Synchronized document with ID 687171f2583a424aef789c07 to primary database.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Synchronized document with ID 68716bbcad3202e6f887da69 to primary database.
+INFO:root:Synchronized document with ID 68716bc659ffdfaf94f8c35a to primary database.
+INFO:root:Synchronized document with ID 68716e55ba5b2666d171e06e to primary database.
+INFO:root:Synchronized document with ID 6872c615458828f36d549790 to primary database.
+INFO:root:Synchronized document with ID 6872c8947bb22cb9990fe425 to primary database.
+INFO:root:Synchronized document with ID 6872c9ea259189103f9fbc3a to primary database.
+INFO:root:Synchronized document with ID 68716239ad3202e6f887da68 to primary database.
+INFO:root:Synchronized document with ID 6881bba53b8cede656038155 to primary database.
+INFO:root:Synchronized document with ID 6872c62db3d6d3547f628ae0 to primary database.
+INFO:root:Synchronized document with ID 687171ee60f4eafdbae726ac to primary database.
+INFO:root:Synchronized document with ID 6872c7a8b3d6d3547f628ae1 to primary database.
+INFO:root:Synchronized document with ID 6872c890365a7c5da44249e3 to primary database.
+INFO:root:Synchronized document with ID 6881bb978388d8e29c59c1ba to primary database.
+INFO:root:Synchronized document with ID 6872c7a4458828f36d549791 to primary database.
+INFO:root:Synchronized document with ID 687171f2583a424aef789c07 to primary database.
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:2025-07-24 05:00:00.252694 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: alice@example.com
+To: bob@example.com
+Encrypted-AES-Key: Zyv1kZVwlXzW9IvNEV7g18CoY6SxHn4DxIOIlyL+4TBrybONtDFL+L7czWxS3J5ElZAHnZqLgXFrLejbFwKdMS+sjHvw2YOAydlYMMIvgRINAJYjj9etkLmt/YySoCIDk1rhWbfQnIjuIddeQL8Gi+c0i9unXSQoJecdFi05La91NjyTjVmReML6JhfpXVqSXVZRq4vI5fn2RbkRyycZFiMwduCC2CTFIG2sN1A6iXkBtEoSwHdDLehAz+m0Nx2SwEj11OAoRBe4vuWAe8f1JMHRbkqLGIZPKJ0NNCDHB7HigPJAt2cwX+FXXRDCsdolVtOF1bwbCGnsPciODINHHA==
+IV: jr8yuxMfXSZaNqoryD+z5Q==
+Message: ROoQPNyL6kjPkU6P0eaf68YaBBh/zYeMCghM5MlVfEA=
+
+e49d1fde1d5e80c87c2eed7eae54a369dbefa4839895ed0aa4ef187c89eede35
+INFO:root:HMAC verification succeeded.
+INFO:root:Message stored in primary database.
+INFO:root:Message stored in backup database.
+INFO:root:Message stored for recipients: ['bob@example.com']
+INFO:root:Received POP3 request for: bob@example.com
+INFO:root:Retrieved 1 messages from primary database for recipient: bob@example.com
+INFO:root:Sent message to bob@example.com
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:2025-07-24 05:01:22.413987 | User: bob@example.com | Action: EXPORT | Details: User exported their data
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:email 6881bdd08f2f316a8a3b7241 deleted from primary database.
+INFO:root:email 6881bdd08f2f316a8a3b7241 deleted from backup database.
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:2025-07-24 05:04:18.313190 | User: alice@example.com | Action: EXPORT | Details: User exported their data
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:2025-07-24 17:14:26.878483 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7273, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.0030671441522863467>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:2025-07-24 17:14:44.594817 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: bob@example.com
+To: alice@example.com
+Encrypted-AES-Key: Y3njuw5lHY2eyeW3A09he3uVfcd1qZQT+eKXXh9ZHlJtRpkHM6+79OMJi3Fmpe0b2wOuolKtSgrYgfatn41JQh1EkYVSCIPchENGo5j7koUYSC3lXkiWP/Tlc5QPxpMhgabOmizBobtvLfnXIqDkJjaKPgAhGVMKAkOdT0+6OsIofGLCqxqq6f3qiGBufNjy/MrlZh4KMXx3DfbVlPfemOs+3Gn6ZMZoh8k/j88ecVGyBo0tgiQcdqARYPC4rsl6YXi0aoMyDI4Ia4ewhOaAp3auF6ngFS/mZJzyxbJRCf3cqLG6xTd3HIG6JTX1SjHnkLKX1w4sbQamB/6wA4vfug==
+IV: A78REfGVZUImzp3ZjK3zTg==
+Message: emdsVWKpGHAxKrTxfkuTds1Q1Mj4HcI8y+dR5vN0Cxg=
+
+e9c44b61fb4b9fddd8afdca0c02c1f2e0a336aac2561c2b264804c95e8c6456c
+INFO:root:HMAC verification succeeded.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7273, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01060222546210757>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7273, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01060222546210757>]>
+INFO:root:Received POP3 request for: alice@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7273, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.012289197735744559>]>
+WARNING:root:primary database is not available. Skipping write.
+INFO:root:Running periodic database synchronization...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7273, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.013612599788749964>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7274, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.016271594380555327>]>
+WARNING:root:backup database is not available. Skipping write.
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7273, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.014171701635724964>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7274, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.015555475504425124>]>
+WARNING:root:No messages found for recipient: alice@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7273, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.014066247366850007>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Error handling SMTP client: [SYS] unknown error (_ssl.c:2427)
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 688269d674baacd120ad7273, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.013815164693387578>]>
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed593628f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.0021296724077110416>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Alice's POP3 server running on port 1102
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed593628f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.010615794800661738>]>
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed593628f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.010615794800661738>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+INFO:root:2025-07-24 17:20:16.037527 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Raw email data received:
+From: alice@example.com
+To: bob@example.com
+Encrypted-AES-Key: LyZHbg1k0BMe/rNs2ZVUeife/IZrvMnYvyvVDb6Pk144GnI7jZV5dcnBxqEQRtIwviii3335WdAaQRVSqycBe5Ig5yDLYDJTlh/9vj7d3+BgHMPG6Fu/nMh8+eCVq5WC8GfLQAoB2XegmZrzf3hbLnKc7yju06sBdNjsMKwrpe8SKUTowk/sN1QIz96pocgl0OFYKRy967y+9DuF042GhTS4bnOFBzyB7e2p0rykVxYAMnZ3n1krCAJO0GHyQXwTvRd9q1vaPIagylacGl7EdMXzixbnIiXF5FG0B1KK7jdXyvRU4WbSoqSQ2SZGH5jQrxk+Lusi0ZJNHiTRTw0AxQ==
+IV: cGEAdu7XvUIGQy+9lKD29g==
+Message: pjiJ8/OcoUMoK1sVw/RpZ4YK8Css7/beXNXs5ZEm5Zc=
+
+3d345e5f8d208a44d324090cab15de86e6bb67f2eabaac2629dc2ee76fdfc117
+INFO:root:HMAC verification succeeded.
+INFO:root:Running periodic database synchronization...
+INFO:root:Received POP3 request for: alice@example.com
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed593628f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.019830701412872725>]>
+WARNING:root:primary database is not available. Skipping write.
+INFO:root:Enforcing retention policy...
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed593628f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018412602730246374>]>
+WARNING:root:Primary database is unavailable. Synchronization skipped.
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed593628f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.018412602730246374>]>
+ERROR:root:Database health check failed: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed5936290, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.013404506363875432>]>
+WARNING:root:backup database is not available. Skipping write.
+INFO:root:Running periodic database synchronization...
+ERROR:root:Error enforcing retention policy: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed593628f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_backup', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.020032086253774943>]>
+ERROR:root:Error retrieving messages from backup database: No replica set members match selector "Primary()", Timeout: 30s, Topology Description: <TopologyDescription id: 68826afd422c6e3ed5936290, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('mongo_primary', 27017) server_type: RSSecondary, rtt: 0.01578773009109022>]>
+INFO:root:Connected to primary MongoDB.
+INFO:root:Connected to backup MongoDB.
+INFO:root:Synchronizing all databases on startup...
+INFO:root:Checking database consistency...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Server running on SMTP port 1026 and POP3 port 1102
+INFO:root:Alice's SMTP server running on port 1026
+INFO:root:Alice's POP3 server running on port 1102
+INFO:root:2025-07-24 17:23:21.772398 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:2025-07-24 17:23:33.091604 | User: alice@example.com | Action: send_email | Details: To: bob@example.com
+INFO:root:Running periodic database synchronization...
+INFO:root:Raw email data received:
+From: bob@example.com
+To: alice@example.com
+Encrypted-AES-Key: AdsiDchnfK4B4uOPO/Du75k6JRnFa2f9xOO8dLMORPfFUherlhJUHeHpnoFZnYnmVQOFqxJZsViHocYhIwGNS/ygdwKr2kc54JWEbvlmEtwZG/y9F4fOosDhhCMH9IenA/+i0hgZlqALCVSC96hrjtGQA43UDdNvBU6l+Ks6gNnbCcxmr2os2abPOBL4dn4OhBayw3kvHn7E24/5E2HD+i2kwNAzBFxrbiidirHtALGir3MbrCaskbbB337+Vw+q0pEN1ya5VNSd7v2eqS3KqU9askjoTb8utkx+fO+UuW2M+c2WlKW1uw57iUgKfludYVjNxuIngbZqdbnokjCA4w==
+IV: a7a2+c/ffPqaKZlUsrII7w==
+Message: JagZ6SaJgUpQPAzkV6EY5ru4n7wYUJW4qkiifEeUehU=
+
+39ee57ca810be9ef2ea94ca7a971cfc28b5a152d03da0a2cd51c5a8426e7809e
+INFO:root:HMAC verification succeeded.
+INFO:root:Message stored in primary database.
+INFO:root:Message stored in backup database.
+INFO:root:Message stored for recipients: ['alice@example.com']
+INFO:root:Received POP3 request for: alice@example.com
+INFO:root:Retrieved 1 messages from primary database for recipient: alice@example.com
+INFO:root:Sent message to alice@example.com
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
+INFO:root:Running periodic database synchronization...
+INFO:root:Enforcing retention policy...
+INFO:root:Running periodic database synchronization...
