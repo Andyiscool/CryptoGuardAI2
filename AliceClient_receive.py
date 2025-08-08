@@ -37,9 +37,12 @@ CryptoGuardAI Privacy Notice
 By using this service, you agree to this policy.
 """)  
 def export_user_data(user_email, port):
+    client_socket = None
     try:
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        context.check_hostname = False        # FIRST
+        context.verify_mode = ssl.CERT_NONE   # SECOND
+        
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
@@ -63,9 +66,10 @@ def export_user_data(user_email, port):
             f.write(data)
         print(f"User data exported to {user_email}_export.json")
     except Exception as e:
-        print(f"Error exporting user data: {e}")
+        print(f"Error: {e}")
     finally:
-        client_socket.close()
+        if client_socket:
+            client_socket.close()
 
 def export_decrypted_emails():
     if decrypted_emails:
@@ -126,16 +130,15 @@ def hybrid_decrypt(encrypted_aes_key, iv, encrypted_message, recipient_private_k
         raise
 
 def receive_messages(recipient_email, port):
-    """
-    Connects to the POP3 server, authenticates, and retrieves encrypted emails.
-    Decrypts the emails using the recipient's private key.
-    """
     global decrypted_emails
     decrypted_emails = []
+    client_socket = None
     try:
         # Create SSL context
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        context.check_hostname = False        # ✅ FIRST: Disable hostname checking
+        context.verify_mode = ssl.CERT_NONE  
+        # Removed: 
     
         # Create and wrap the socket with SSL
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -150,21 +153,20 @@ def receive_messages(recipient_email, port):
         # Receive server response
         response = client_socket.recv(1024).decode("utf-8")
         print(f"Server response: {response}")
-
+        
         if "+OK" in response:
-            # Start retrieving messages
             while True:
-                # Receive message metadata
+                # Receive metadata line
                 msg_info = client_socket.recv(1024).decode("utf-8").strip()
                 if not msg_info:
                     break
-                print(f"Email received: {msg_info}")
                 try:
                     msg_info_dict = json.loads(msg_info)
                 except Exception:
-                    msg_info_dict = {"info": msg_info}
+                    print("Error parsing metadata JSON.")
+                    continue
 
-                # Receive and parse the encrypted message components
+                # Receive encrypted components
                 raw_aes_key = client_socket.recv(4096).decode("utf-8").strip()
                 raw_iv = client_socket.recv(1024).decode("utf-8").strip()
                 raw_message = client_socket.recv(4096).decode("utf-8").strip()
@@ -172,42 +174,38 @@ def receive_messages(recipient_email, port):
                 # Ensure no empty components
                 if not raw_aes_key or not raw_iv or not raw_message:
                     print("Missing one or more components of the encrypted message.")
-                    continue  # Skip to the next message
+                    continue
 
-                # Debug received data
                 print(f"Raw AES key (Base64): {raw_aes_key}")
                 print(f"Raw IV (Base64): {raw_iv}")
                 print(f"Raw Message (Base64): {raw_message}")
 
-                # Decode and validate the components
                 try:
                     encrypted_aes_key = base64.b64decode(add_base64_padding(raw_aes_key))
                     iv = base64.b64decode(add_base64_padding(raw_iv))
                     encrypted_message = base64.b64decode(add_base64_padding(raw_message))
                 except Exception as decode_error:
                     print(f"Error decoding Base64 data: {decode_error}")
-                    continue  # Skip to the next message
+                    continue
 
-                # Validate AES key and IV sizes
-                if len(encrypted_aes_key) != 256:  # RSA-encrypted AES key size
+                if len(encrypted_aes_key) != 256:
                     print(f"Invalid RSA-encrypted AES key size: {len(encrypted_aes_key)} bytes")
-                    continue  # Skip to the next message
-
-                if len(iv) != 16:  # 128-bit IV for AES
+                    continue
+                if len(iv) != 16:
                     print(f"Invalid IV size: {len(iv)} bytes")
-                    continue  # Skip to the next message
+                    continue
 
                 try:
                     decrypted_message = hybrid_decrypt(
                         encrypted_aes_key, iv, encrypted_message, "/Users/andyxiao/PostGradProjects/CryptoGuardAI/Alice_private_key.pem"
                     )
+                    print(f"Decrypted message content: {decrypted_message}")
                     decrypted_emails.append({
                         "from": msg_info_dict.get("sender", ""),
                         "to": msg_info_dict.get("recipient", ""),
                         "timestamp": msg_info_dict.get("timestamp", ""),
                         "message": decrypted_message
                     })
-                    print(f"Decrypted message content: {decrypted_message}")
                 except Exception as decryption_error:
                     print(f"Error decrypting message: {decryption_error}")
                     continue  # Skip to the next message
@@ -220,14 +218,18 @@ def receive_messages(recipient_email, port):
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
-        client_socket.close()
+        if client_socket:  # ✅ Only close if socket was created
+            client_socket.close()
         
 import ssl
 
 def delete_email(email_id, port):
+    client_socket = None
     try:
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        context.check_hostname = False        # FIRST
+        context.verify_mode = ssl.CERT_NONE   # SECOND
+        
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
@@ -246,13 +248,17 @@ def delete_email(email_id, port):
             log_file.write(f"{datetime.now()} | Action: soft delete email | Email ID: {email_id}\n")
    
     except Exception as e:
-        print(f"Error sending deletion request: {e}")
+        print(f"Error: {e}")
     finally:
-        client_socket.close()
+        if client_socket:
+            client_socket.close()
 def hard_delete_email(email_id, port):
+    client_socket = None
     try:
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        context.check_hostname = False        # FIRST
+        context.verify_mode = ssl.CERT_NONE   # SECOND
+        
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
@@ -270,13 +276,17 @@ def hard_delete_email(email_id, port):
             from datetime import datetime
             log_file.write(f"{datetime.now()} | Action: hard delete email | Email ID: {email_id}\n")
     except Exception as e:
-        print(f"Error sending hard deletion request: {e}")
+        print(f"Error: {e}")
     finally:
-        client_socket.close()
+        if client_socket:
+            client_socket.close()
 def reverse_self_delete_email(email_id, port):
+    client_socket = None
     try:
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        context.check_hostname = False        # FIRST
+        context.verify_mode = ssl.CERT_NONE   # SECOND
+        
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
@@ -294,14 +304,18 @@ def reverse_self_delete_email(email_id, port):
             from datetime import datetime
             log_file.write(f"{datetime.now()} | Action: reverse self delete email | Email ID: {email_id}\n")
     except Exception as e:
-        print(f"Error sending reverse deletion request: {e}")
+        print(f"Error: {e}")
     finally:
-        client_socket.close()
+        if client_socket:
+            client_socket.close()
 
 def retain_email(email_id, retention_days, port):
+    client_socket = None
     try:
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        context.check_hostname = False        # FIRST
+        context.verify_mode = ssl.CERT_NONE   # SECOND
+        
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
@@ -319,9 +333,10 @@ def retain_email(email_id, retention_days, port):
             from datetime import datetime
             log_file.write(f"{datetime.now()} | Action: retain email | Email ID: {email_id} | Retention Days: {retention_days}\n")
     except Exception as e:
-        print(f"Error sending retention request: {e}")
+        print(f"Error: {e}")
     finally:
-        client_socket.close()
+        if client_socket:
+            client_socket.close()
 
 def manage_emails_menu(port):
     while True:

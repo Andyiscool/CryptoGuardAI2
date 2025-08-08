@@ -75,7 +75,7 @@ def delete_email(email_id, port):
         retention_minutes = input("Enter Retention Minutes (default 1):")
         retention_minutes = int(retention_minutes) if retention_minutes.strip() else 1
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)  # Receive welcome message
@@ -97,7 +97,7 @@ def hard_delete_email(email_id, port):
 
     try:
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
         client_socket.connect(('localhost', port))
@@ -121,7 +121,7 @@ def retain_email(email_id, retention_days, port):
 
     try:
         context = ssl.create_default_context()
-        context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+        
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect(('localhost', port))
         client_socket.recv(1024)  # Receive welcome message
@@ -164,19 +164,14 @@ def interactive_menu(port):
             print("Invalid choice. Please try again.")
 
 def send_email(recipient, sender, password, message_content, port):
-    log_user_action("alice@example.com", "send_email", f"To: {recipient}")
+    log_user_action(sender, "send_email", f"To: {recipient}")
 
-    """
-    Sends an encrypted email using hybrid encryption.
-    """
     context = ssl.create_default_context()
-    context.verify_mode = ssl.CERT_REQUIRED
-    context.check_hostname = False
-    context.load_verify_locations(cafile="/Users/andyxiao/PostGradProjects/CryptoGuardAI/server.crt")
+    context.check_hostname = False        # ✅ FIRST: Disable hostname checking
+    context.verify_mode = ssl.CERT_NONE   # ✅ THEN: Disable certificate verification
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
-
     try:
         client_socket.connect(('localhost', port))
 
@@ -227,7 +222,7 @@ if __name__ == "__main__":
             recipient="bob@example.com",
             sender="alice@example.com",
             password="Securepass123!",
-            message_content="Hello Bob, this is Alice!",
+            message_content="Hello Bob, this is Alice12!",
             port=2525
         )
     elif choice == "2":

@@ -5,5 +5,12 @@
     "timestamp": "",
     "message": "Hello Bob, this is Alice!",
     "subject": ""
+  },
+  {
+    "from": "",
+    "to": "",
+    "timestamp": "",
+    "message": "Hello Bob, this is Alice!",
+    "subject": ""
   }
 ]
