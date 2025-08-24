@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   mongo_primary:
     image: mongo:6
@@ -23,6 +22,92 @@ services:
       - /Users/andyxiao/mongo_backup_data:/data/db
     networks:
       - mongo_net
+
+  alice_server:
+    build: .
+    command: ["python", "AliceServer.py"]
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./keys:/app/keys:ro
+    depends_on:
+      - mongo_primary
+    networks:
+      - mongo_net
+    environment:
+      - HMAC_KEY=f8ac35cbd599c3499c10c616f445b04d199e2698dfa322d750317c2c5982c4a4
+  bob_server:
+    build: .
+    command: ["python", "BobServer.py"]
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./keys:/app/keys:ro
+    depends_on:
+      - mongo_primary
+    networks:
+      - mongo_net
+    environment:
+      - HMAC_KEY=f8ac35cbd599c3499c10c616f445b04d199e2698dfa322d750317c2c5982c4a4
+  load_balancer:
+    build: .
+    command: ["python", "load_balancer.py"]
+    networks:
+      - mongo_net
+    ports:
+      - "2525:2525"
+      - "2526:2526"
+    depends_on:
+      - alice_server
+      - bob_server
+
+  alice_client:
+    build: .
+    command: ["python", "AliceClient.py"]
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./keys:/app/keys:ro
+      - /Users/andyxiao/PostGradProjects/CryptoGuardAI/Bob_public_key.pem:/app/Bob_public_key.pem:ro
+    networks:
+      - mongo_net
+    environment:
+      - HMAC_KEY=f8ac35cbd599c3499c10c616f445b04d199e2698dfa322d750317c2c5982c4a4
+    depends_on:
+      - alice_server
+  alice_client_receive:
+    build: .
+    command: ["python", "AliceClient_receive.py"]
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./keys:/app/keys:ro
+      - /Users/andyxiao/PostGradProjects/CryptoGuardAI/Alice_private_key.pem:/app/Alice_private_key.pem:ro
+    networks:
+      - mongo_net
+    environment:
+      - HMAC_KEY=f8ac35cbd599c3499c10c616f445b04d199e2698dfa322d750317c2c5982c4a4
+
+  bob_client:
+    build: .
+    command: ["python", "BobClient.py"]
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./keys:/app/keys:ro
+      - /Users/andyxiao/PostGradProjects/CryptoGuardAI/Alice_public_key.pem:/app/Alice_public_key.pem:ro
+    networks:
+      - mongo_net
+    environment:
+      - HMAC_KEY=f8ac35cbd599c3499c10c616f445b04d199e2698dfa322d750317c2c5982c4a4
+    depends_on:
+      - bob_server
+  bob_client_receive:
+    build: .
+    command: ["python", "BobClient_receive.py"]
+    volumes:
+      - ./certs:/app/certs:ro
+      - ./keys:/app/keys:ro
+      - /Users/andyxiao/PostGradProjects/CryptoGuardAI/Bob_private_key.pem:/app/Bob_private_key.pem:ro
+    networks:
+      - mongo_net
+    environment:
+      - HMAC_KEY=f8ac35cbd599c3499c10c616f445b04d199e2698dfa322d750317c2c5982c4a4
 
 networks:
   mongo_net:

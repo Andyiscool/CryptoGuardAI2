@@ -3,6 +3,7 @@ import hashlib
 import os
 
 key_hex = os.getenv("HMAC_KEY")
+print(f"HMAC_KEY (hex): {key_hex}")
 if not key_hex:
     raise RuntimeError("HMAC_KEY environment variable is not set.")
 HMAC_KEY = bytes.fromhex(os.getenv("HMAC_KEY"))

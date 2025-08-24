@@ -77,7 +77,7 @@ def delete_email(email_id, port):
         context = ssl.create_default_context()
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(('localhost', port))
+        client_socket.connect(('load_balancer', port))
         client_socket.recv(1024)  # Receive welcome message
 
         command = f"DELETE:{email_id}:{retention_minutes}"
@@ -99,8 +99,8 @@ def hard_delete_email(email_id, port):
         context = ssl.create_default_context()
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
-        client_socket.connect(('localhost', port))
+        client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
+        client_socket.connect(('load_balancer', port))
         client_socket.recv(1024)
 
         command = f"HARD_DELETE:{email_id}"
@@ -123,7 +123,7 @@ def retain_email(email_id, retention_days, port):
         context = ssl.create_default_context()
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket.connect(('localhost', port))
+        client_socket.connect(('load_balancer', port))
         client_socket.recv(1024)  # Receive welcome message
 
         command = f"RETAIN:{email_id}:{retention_days}"
@@ -171,14 +171,14 @@ def send_email(recipient, sender, password, message_content, port):
     context.verify_mode = ssl.CERT_NONE   # ✅ THEN: Disable certificate verification
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
+    client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
     try:
-        client_socket.connect(('localhost', port))
+        client_socket.connect(('load_balancer', port))
 
         # Encrypt the message
         try:
             encrypted_aes_key, iv, encrypted_message = hybrid_encrypt(
-                message_content, "/Users/andyxiao/PostGradProjects/CryptoGuardAI/Bob_public_key.pem"
+                message_content, "/app/Bob_public_key.pem"
             )
 
             # Debugging encrypted components

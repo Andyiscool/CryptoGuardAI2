@@ -43,8 +43,8 @@ def export_user_data(user_email, port):
         context.verify_mode = ssl.CERT_NONE   # SECOND
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
-        client_socket.connect(('localhost', port))
+        client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
+        client_socket.connect(('load_balancer', port))
         client_socket.recv(1024)  # Receive initial greeting
         
         # Send request for user data
@@ -125,8 +125,9 @@ def receive_messages(recipient_email, port):
     
         # Create and wrap the socket with SSL
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
-        client_socket.connect(('localhost', port))
+        client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
+        client_socket.connect(('load_balancer', port))
+        client_socket.settimeout(2.0)  # <-- Add this line
 
         # Send recipient email
         command_bytes = recipient_email.encode("utf-8")
@@ -141,8 +142,11 @@ def receive_messages(recipient_email, port):
         if "+OK" in response:
             while True:
                 # Receive metadata line
-                msg_info = client_socket.recv(1024).decode("utf-8").strip()
-                if not msg_info:
+                try:
+                    msg_info = client_socket.recv(1024).decode("utf-8").strip()
+                    if not msg_info:
+                        break
+                except socket.timeout:
                     break
                 try:
                     msg_info_dict = json.loads(msg_info)
@@ -181,7 +185,7 @@ def receive_messages(recipient_email, port):
 
                 try:
                     decrypted_message = hybrid_decrypt(
-                        encrypted_aes_key, iv, encrypted_message, "/Users/andyxiao/PostGradProjects/CryptoGuardAI/Bob_private_key.pem"
+                        encrypted_aes_key, iv, encrypted_message, "/app/Bob_private_key.pem"
                     )
                     print(f"Decrypted message content: {decrypted_message}")
                     decrypted_emails.append({
@@ -205,7 +209,7 @@ def receive_messages(recipient_email, port):
 
                 try:
                     decrypted_message = hybrid_decrypt(
-                        encrypted_aes_key, iv, encrypted_message, "/Users/andyxiao/PostGradProjects/CryptoGuardAI/Bob_private_key.pem"
+                        encrypted_aes_key, iv, encrypted_message, "/app/Bob_private_key.pem"
                     )
                     print(f"Decrypted message content: {decrypted_message}")
                     decrypted_emails.append({
@@ -238,8 +242,8 @@ def reverse_self_delete_email(email_id, port):
         context.verify_mode = ssl.CERT_NONE   # SECOND
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
-        client_socket.connect(('localhost', port))
+        client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
+        client_socket.connect(('load_balancer', port))
         client_socket.recv(1024)  # Receive initial greeting
 
         command = f"UNDELETE:{email_id}"
@@ -284,8 +288,8 @@ def delete_email(email_id, port):
         context.verify_mode = ssl.CERT_NONE   # SECOND
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
-        client_socket.connect(('localhost', port))
+        client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
+        client_socket.connect(('load_balancer', port))
         client_socket.recv(1024)  # Receive initial greeting
 
         command = f"DELETE:{email_id}"
@@ -313,8 +317,8 @@ def hard_delete_email(email_id, port):
         context.verify_mode = ssl.CERT_NONE   # SECOND
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
-        client_socket.connect(('localhost', port))
+        client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
+        client_socket.connect(('load_balancer', port))
         client_socket.recv(1024)
 
         command = f"HARD_DELETE:{email_id}"
@@ -342,8 +346,8 @@ def retain_email(email_id, retention_days, port):
         context.verify_mode = ssl.CERT_NONE   # SECOND
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_socket = context.wrap_socket(client_socket, server_hostname='localhost')
-        client_socket.connect(('localhost', port))
+        client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
+        client_socket.connect(('load_balancer', port))
         client_socket.recv(1024)  # Receive initial greeting
 
         command = f"RETAIN:{email_id}:{retention_days}"

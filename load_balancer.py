@@ -1,29 +1,23 @@
-"""
-File: load_balancer.py
-Author: Andy Xiao
-
-Description:
-Balance the loads between multiple servers
-
-References:
-- GitHub Copilot: GitHub. (2025). Github Copilot. Retrieved from https://github.com/features/copilot
-"""
 import socket
 import threading
 
-smtp_servers = [("localhost", 1025), ("localhost", 1026)]
-pop3_servers = [("localhost", 1101), ("localhost", 1102)]
+# Use Docker service names for backend servers
+smtp_servers = [("alice_server", 1025), ("bob_server", 1026)]
+pop3_servers = [("alice_server", 1101), ("bob_server", 1102)]
 smtp_current_server = 0
 pop3_current_server = 0
+lock = threading.Lock()
 
 def handle_client(client_socket, protocol):
     global smtp_current_server, pop3_current_server
     if protocol == "SMTP":
-        server_host, server_port = smtp_servers[smtp_current_server]
-        smtp_current_server = (smtp_current_server + 1) % len(smtp_servers)
+        with lock:
+            server_host, server_port = smtp_servers[smtp_current_server]
+            smtp_current_server = (smtp_current_server + 1) % len(smtp_servers)
     elif protocol == "POP3":
-        server_host, server_port = pop3_servers[pop3_current_server]
-        pop3_current_server = (pop3_current_server + 1) % len(pop3_servers)
+        with lock:
+            server_host, server_port = pop3_servers[pop3_current_server]
+            pop3_current_server = (pop3_current_server + 1) % len(pop3_servers)
     else:
         print("Unknown protocol")
         client_socket.close()
@@ -37,26 +31,24 @@ def handle_client(client_socket, protocol):
     except Exception as e:
         print(f"Error connecting to backend server: {e}")
         client_socket.close()
+
 def forward(source, destination):
     try:
         while True:
             data = source.recv(4096)
             if not data:
-                print("Connection closed by source.")
-
                 break
-            print(f"Forwarding data: {data.decode('utf-8', errors='replace')}")
-
             destination.sendall(data)
     except Exception as e:
         print(f"Error forwarding data: {e}")
     finally:
         source.close()
         destination.close()
+
 def start_smtp_listener(smtp_port):
     smtp_listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     smtp_listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    smtp_listener.bind(('localhost', smtp_port))
+    smtp_listener.bind(('0.0.0.0', smtp_port))
     smtp_listener.listen(5)
     print(f"SMTP Load balancer running on port {smtp_port}")
 
@@ -68,7 +60,7 @@ def start_smtp_listener(smtp_port):
 def start_pop3_listener(pop3_port):
     pop3_listener = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     pop3_listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    pop3_listener.bind(('localhost', pop3_port))
+    pop3_listener.bind(('0.0.0.0', pop3_port))
     pop3_listener.listen(5)
     print(f"POP3 Load balancer running on port {pop3_port}")
 
@@ -86,5 +78,6 @@ def start_load_balancer(smtp_port, pop3_port):
             pass
     except KeyboardInterrupt:
         print("Shutting down load balancer.")
+
 if __name__ == "__main__":
-    start_load_balancer(2525,2526)
+    start_load_balancer(2525, 2526)
