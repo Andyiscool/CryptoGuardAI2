@@ -1,6 +1,27 @@
 # CryptoGuardAI
 
 CryptoGuardAI is aimed at detecting phishing emails and securing email communications using AI, cryptography, and cybersecurity.
+# How To Run
+1) run "docker-compose up --build -d" - start servers and database
+2) run "docker-compose run --rm alice_client" - send to bob
+3) run "docker-compose run --rm bob_client_receive" - message from alice
+4) run "docker-compose run --rm bob_client" - send to alice
+5) run "docker-compose run --rm alice_client_receive" - message from bob
+6) run "docker-compose down" - shut down servers and database
+
+# How To Rerun After Change
+1) save files
+2) run "docker-compose down" - shut down servers and database
+3) run "docker-compose up --build -d" - start servers and database
+4) Do Steps 2 to 5 in "How To Run"
+
+# Manual Delete Database Or Check Data
+1) run "docker-compose down" - shut down servers and database
+2) start "mongo_primary" and "mongo_backup"
+3) in "mongo_primary" type "use email_db"
+4) type "db.dropDatabase()" to drop or "db.messages.find().pretty()" to check message
+5) if dropping database, type "use email_db_backup" and type "db.dropDatabase()" again
+6) if dropping database, check both "mongo_primary" and "mongo_backup" by typing "db.messages.find().pretty()" for both "email_db" and "email_db_backup"
 
 ## Features
 
