@@ -1,0 +1,9 @@
+[
+  {
+    "from": "bob@example.com",
+    "to": "alice@example.com",
+    "timestamp": "2025-08-28T05:36:21.144672",
+    "message": "Hello Alice, this is Bob12!",
+    "subject": ""
+  }
+]

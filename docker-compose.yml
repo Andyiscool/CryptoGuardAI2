@@ -79,6 +79,8 @@ services:
       - ./certs:/app/certs:ro
       - ./keys:/app/keys:ro
       - /Users/andyxiao/PostGradProjects/CryptoGuardAI/Alice_private_key.pem:/app/Alice_private_key.pem:ro
+      - ./exports:/app/exports   # <-- Add this line
+
     networks:
       - mongo_net
     environment:
@@ -101,6 +103,7 @@ services:
     build: .
     command: ["python", "BobClient_receive.py"]
     volumes:
+      - ./exports:/app/exports
       - ./certs:/app/certs:ro
       - ./keys:/app/keys:ro
       - /Users/andyxiao/PostGradProjects/CryptoGuardAI/Bob_private_key.pem:/app/Bob_private_key.pem:ro

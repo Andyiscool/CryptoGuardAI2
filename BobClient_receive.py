@@ -34,42 +34,59 @@ CryptoGuardAI Privacy Notice
 - For questions or requests, contact: privacy@yourdomain.com
 
 By using this service, you agree to this policy.
-""")  
+""")
+import os  
 def export_user_data(user_email, port):
     client_socket = None
     try:
+        print("DEBUG: Starting export_user_data")
         context = ssl.create_default_context()
-        context.check_hostname = False        # FIRST
-        context.verify_mode = ssl.CERT_NONE   # SECOND
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
         
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print("DEBUG: Socket created")
         client_socket = context.wrap_socket(client_socket, server_hostname='load_balancer')
+        print("DEBUG: Socket wrapped with SSL")
         client_socket.connect(('load_balancer', port))
+
+        print("DEBUG: Connected to load_balancer")
         client_socket.recv(1024)  # Receive initial greeting
-        
-        # Send request for user data
+        print("DEBUG: Received initial greeting")
+        client_socket.settimeout(5.0)
         command = f"EXPORT:{user_email}"
         command_bytes = command.encode('utf-8')
         hmac_value = generate_hmac(command_bytes)
         message = command_bytes + b'\n' + hmac_value.encode()
         client_socket.sendall(message)
+        print("DEBUG: Sent EXPORT command")
 
         data = b""
         while True:
-           chunk = client_socket.recv(4096)
-           if not chunk:
-               break
-           data += chunk
-        
-        with open(f"{user_email}_export.json", "wb") as f:
+            try:
+                print("DEBUG: Waiting to receive data chunk...")
+                chunk = client_socket.recv(4096)
+                print(f"DEBUG: Received chunk of length {len(chunk)}")
+                if not chunk:
+                    print("DEBUG: Received empty chunk, breaking loop")
+                    break
+                data += chunk
+            except socket.timeout:
+                print("DEBUG: Socket timeout, assuming end of data.")
+                break
+
+        print(f"DEBUG: Total data received: {len(data)}")
+        print("DEBUG: /app/exports contents before write:", os.listdir("/app/exports"))
+        export_path = f"/app/exports/{user_email}_export.json"
+        with open(export_path, "wb") as f:
             f.write(data)
-        print(f"User data exported to {user_email}_export.json")
+        print(f"User data exported to {export_path}")
+        print("DEBUG: /app/exports contents after write:", os.listdir("/app/exports"))
     except Exception as e:
         print(f"Error: {e}")
     finally:
         if client_socket:
             client_socket.close()
-
 def add_base64_padding(data):
     """
     Adds padding to Base64-encoded data if necessary.
@@ -271,10 +288,12 @@ def export_decrypted_emails():
             email.setdefault("timestamp", "")
             email.setdefault("subject", "")
             email.setdefault("message", "")
-        with open("bob_decrypted_emails.json", "w") as f:
+        export_path = "/app/exports/bob_decrypted_emails.json"
+        with open(export_path, "w") as f:
             json.dump(decrypted_emails, f, indent=2)
-        print("Decrypted emails exported to bob_decrypted_emails.json")
-        with open("userdata.log", "a") as log_file:
+        print(f"Decrypted emails exported to {export_path}")
+        log_file = "/app/exports/userdata.log"
+        with open(log_file, "a") as log_file:
             from datetime import datetime
             log_file.write(f"{datetime.now()} | User: {email['from']} | Action: export_decrypted_emails | Count: {len(decrypted_emails)}\n")
     
